@@ -37,7 +37,7 @@
 
   /* Compact Swiper Container to remove White Space Gap */
   .jewelry-v-slider-{{ section.id }} .swiper-jewelry-v {
-    padding: 100px 0 100px; /* Stronger top padding to Allow side rings to go UP */
+    padding: 100px 0 30px; 
     overflow: visible !important;
   }
 
@@ -262,15 +262,22 @@
 
         if (!imgWrap) continue;
 
-        // V-Shape: Regular V (∨) -> Center is LOWER, side rings go UP
-        const slope = isMobile ? 0 : 80;
+        // V-Shape: Center is vertex (0), sides rise UP (Negative translate)
+        // User requested exactly -54px for the 1st neighbor (progress 1)
+        const slope = isMobile ? 40 : 54;
         const translateY = - (absProgress * slope);
         
-        // High Zoom center: 1.45x
+        // Gap Hack: Pull smaller rings slightly closer to the center
+        // Balancing to ensure all 5 slides stay visible without overlapping.
+        const xFactor = isMobile ? 0 : 35; 
+        const xOffset = - (progress * xFactor);
+        
+        // Custom Scale: Center (1.45), Neighbor (1.1), Edge (0.75)
         const scaleBase = isMobile ? 1.3 : 1.45;
-        const scale = scaleBase - (Math.min(absProgress, 3) * 0.3);
+        const scaleDrop = 0.35; 
+        const scale = scaleBase - (Math.min(absProgress, 3) * scaleDrop);
 
-        imgWrap.style.transform = `translate3d(0, ${translateY}px, 0) scale(${Math.max(0.6, scale)})`;
+        imgWrap.style.transform = `translate3d(${xOffset}px, ${translateY}px, 0) scale(${Math.max(0.6, scale)})`;
         slide.style.zIndex = Math.round(100 - (absProgress * 20));
         
         // Visibility for exactly 5 slides total (Center + 2 on each side)
