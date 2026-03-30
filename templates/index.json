@@ -131,6 +131,104 @@
         "title": "DISCOVER STYLES",
         "description": "Discover diverse engagement ring styles, each embodying a distinct symbol of love and devotion",
         "bg_color": "#ffffff",
+        "slider_style": "v_shape",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "jewelry_v_slider_xD64xF": {
+      "type": "jewelry-v-slider",
+      "blocks": {
+        "slide_93xw69": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/by-shape-princess_2.webp",
+            "title": "Princess",
+            "description": "Capturing fire and brilliance in a square"
+          }
+        },
+        "slide_bJ8fCL": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/by-shape-heart_1.webp",
+            "title": "Heart",
+            "description": "A romantic statement of your love - FOREVER"
+          }
+        },
+        "slide_87HF8r": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/by-shape-radiant.webp",
+            "title": "Radiant",
+            "description": "Maximize brilliance in this rectangular show stopper"
+          }
+        },
+        "slide_pyL7kW": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/by-shape-marquise.webp",
+            "title": "Marquise",
+            "description": "Long, narrow sparkle buster"
+          }
+        },
+        "slide_WyGbna": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/by-shape-emerald.webp",
+            "title": "Emerald",
+            "description": "Long, clean lines create the Hall of Mirrors"
+          }
+        },
+        "slide_4KdETr": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/by-shape-cushion.webp",
+            "title": "Cushion",
+            "description": "Cozy rounded corners with large brilliant facets"
+          }
+        },
+        "slide_xQadF3": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/by-shape-round_1.webp",
+            "title": "Round",
+            "description": "The classic shape with the 58 facet Sparkler"
+          }
+        },
+        "slide_H6HPeR": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/by-shape-oval.webp",
+            "title": "Oval",
+            "description": "The timeless elongated shape that flatters the finger"
+          }
+        },
+        "slide_irUjFN": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/by-shape-pear.webp",
+            "title": "Pear",
+            "description": "Slim, teardrop shaped brilliance"
+          }
+        }
+      },
+      "block_order": [
+        "slide_93xw69",
+        "slide_bJ8fCL",
+        "slide_87HF8r",
+        "slide_pyL7kW",
+        "slide_WyGbna",
+        "slide_4KdETr",
+        "slide_xQadF3",
+        "slide_H6HPeR",
+        "slide_irUjFN"
+      ],
+      "name": "Jewelry V-Slider",
+      "settings": {
+        "title": "DISCOVER STYLES",
+        "description": "Discover diverse engagement ring styles, each embodying a distinct symbol of love and devotion",
+        "bg_color": "#ffffff",
+        "slider_style": "straight",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -138,6 +236,7 @@
   },
   "order": [
     "image_banner",
-    "jewelry_v_slider_mkJggf"
+    "jewelry_v_slider_mkJggf",
+    "jewelry_v_slider_xD64xF"
   ]
 }
