@@ -51,6 +51,14 @@
     "jewelry_v_slider_mkJggf": {
       "type": "jewelry-v-slider",
       "blocks": {
+        "slide_hxzREN": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-nature.webp",
+            "title": "Hidden Halo",
+            "description": "Intriguing brilliance from a concealed halo."
+          }
+        },
         "slide_VQgPCf": {
           "type": "slide",
           "settings": {
@@ -109,6 +117,7 @@
         }
       },
       "block_order": [
+        "slide_hxzREN",
         "slide_VQgPCf",
         "slide_zCCt49",
         "slide_DqQqny",
