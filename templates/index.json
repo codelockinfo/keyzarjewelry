@@ -131,6 +131,95 @@
         "title": "DISCOVER STYLES",
         "description": "Discover diverse engagement ring styles, each embodying a distinct symbol of love and devotion",
         "bg_color": "#ffffff",
+        "slider_style": "v_shape",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "jewelry_v_slider_xD64xF": {
+      "type": "jewelry-v-slider",
+      "blocks": {
+        "slide_qp9Afq": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-nature.webp",
+            "title": "Nature",
+            "description": "Organic beauty, inspired by the world around us"
+          }
+        },
+        "slide_MLVjdM": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-sides-stones.webp",
+            "title": "Side Stones",
+            "description": "Exquisite accents framing a central masterpiece"
+          }
+        },
+        "slide_PxQnkb": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-pave.webp",
+            "title": "Pave",
+            "description": "Dazzling diamonds, intricate elegance, endless enchantment"
+          }
+        },
+        "slide_C7hWgT": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-three-stone.webp",
+            "title": "Three Stone",
+            "description": "Symbolic trilogy, past, present, future"
+          }
+        },
+        "slide_LtTHyn": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-halo.webp",
+            "title": "Halo",
+            "description": "Brilliant allure with a surrounding embrace"
+          }
+        },
+        "slide_8j3w7J": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-vintage.webp",
+            "title": "Vintage",
+            "description": "Nostalgic charm meets modern sophistication"
+          }
+        },
+        "slide_cnFtN4": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-solitaire_1.jpg",
+            "title": "Solitaire",
+            "description": "Singular diamond brilliance, timeless and captivating"
+          }
+        },
+        "slide_QDAYxA": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-hidden-halo.webp",
+            "title": "Hidden Halo",
+            "description": "Intriguing brilliance from a concealed halo."
+          }
+        }
+      },
+      "block_order": [
+        "slide_qp9Afq",
+        "slide_MLVjdM",
+        "slide_PxQnkb",
+        "slide_C7hWgT",
+        "slide_LtTHyn",
+        "slide_8j3w7J",
+        "slide_cnFtN4",
+        "slide_QDAYxA"
+      ],
+      "name": "Jewelry V-Slider",
+      "settings": {
+        "title": "DISCOVER STYLES",
+        "description": "Discover diverse engagement ring styles, each embodying a distinct symbol of love and devotion",
+        "bg_color": "#ffffff",
+        "slider_style": "straight",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -138,6 +227,7 @@
   },
   "order": [
     "image_banner",
-    "jewelry_v_slider_mkJggf"
+    "jewelry_v_slider_mkJggf",
+    "jewelry_v_slider_xD64xF"
   ]
 }
