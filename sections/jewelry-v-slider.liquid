@@ -229,12 +229,6 @@
             applyV(this);
           }, 300);
         },
-        beforeTransitionStart: function() {
-          if (infoWrap) infoWrap.classList.add('is-changing');
-        },
-        transitionEnd: function() {
-          if (infoWrap) infoWrap.classList.remove('is-changing');
-        },
         slideChange: function() {
           updateText(this);
         },
@@ -280,13 +274,12 @@
         slide.style.zIndex = Math.round(100 - (absProgress * 20));
         
         // Visibility for exactly 5 slides total (Center + 2 on each side)
-        // Hide slides at progress 2.5 or more.
         if (absProgress > 2.2) {
           slide.style.opacity = 0;
           slide.style.visibility = 'hidden';
           slide.style.pointerEvents = 'none';
         } else {
-          slide.style.opacity = progress === 0 ? 1 : Math.max(0.2, 0.9 - (absProgress * 0.35));
+          slide.style.opacity = 1; // Full opacity for all 5 visible slides
           slide.style.visibility = 'visible';
           slide.style.pointerEvents = 'auto';
         }
