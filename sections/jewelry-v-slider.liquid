@@ -1,0 +1,396 @@
+{%- style -%}
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+  .jewelry-v-slider-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.bg_color }};
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin: 0;
+    color: #1a1a1a;
+  }
+
+  .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__subtitle {
+    font-size: 14px;
+    color: #666;
+    max-width: 600px;
+    margin: 10px auto 0;
+    line-height: 1.6;
+    padding: 0 15px;
+  }
+
+  .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__wrapper {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow: visible;
+  }
+
+  /* Compact Swiper Container to remove White Space Gap */
+  .jewelry-v-slider-{{ section.id }} .swiper-jewelry-v {
+    padding: 100px 0 100px; /* Stronger top padding to Allow side rings to go UP */
+    overflow: visible !important;
+  }
+
+  .jewelry-v-slider-{{ section.id }} .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.4s ease;
+    width: 250px; /* Base width */
+  }
+
+  @media screen and (min-width: 768px) {
+    .jewelry-v-slider-{{ section.id }} .swiper-slide {
+      width: 20% !important; /* Force 5 slides view */
+    }
+  }
+
+  .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__img-container {
+    width: 100%;
+    max-width: 280px;
+    position: relative;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.4, 1);
+    transform-origin: center center;
+  }
+
+  .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__img-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  /* Info at the bottom, No overlapping */
+  .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__info {
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 20px;
+    position: relative;
+    z-index: 80;
+    transition: all 0.5s ease;
+  }
+  
+  .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__info.is-changing {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 5px;
+  }
+
+  .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__btn {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: #1a1a1a;
+    padding: 0;
+  }
+
+  .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__btn:hover {
+    background: #1a1a1a;
+    color: #fff;
+    border-color: #1a1a1a;
+  }
+
+  .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__active-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 32px);
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__active-desc {
+    font-size: 14px;
+    color: #777;
+    margin-top: 5px;
+    letter-spacing: 0.3px;
+  }
+
+  @media screen and (max-width: 767px) {
+    .jewelry-v-slider-{{ section.id }} .swiper-jewelry-v {
+      padding: 80px 0 60px;
+    }
+    .jewelry-v-slider-{{ section.id }} .jewelry-v-slider__controls {
+      gap: 20px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="jewelry-v-slider-{{ section.id }}" id="V-Slider-{{ section.id }}">
+  <div class="jewelry-v-slider__header">
+    <h2 class="jewelry-v-slider__title">{{ section.settings.title }}</h2>
+    <div class="jewelry-v-slider__subtitle">{{ section.settings.description }}</div>
+  </div>
+
+  <div class="jewelry-v-slider__wrapper">
+    <div class="swiper swiper-jewelry-v">
+      <div class="swiper-wrapper">
+        {%- comment -%} Triple slides for loop stability with 5-slide-view {%- endcomment -%}
+        {%- for i in (1..3) -%}
+          {%- for block in section.blocks -%}
+            <div class="swiper-slide" {{ block.shopify_attributes }} 
+                 data-title="{{ block.settings.title | escape }}" 
+                 data-desc="{{ block.settings.description | escape }}">
+              <div class="jewelry-v-slider__img-container">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.image.alt }}" loading="lazy">
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="jewelry-v-slider__info" id="jewelry-v-info-{{ section.id }}">
+      <div class="jewelry-v-slider__controls">
+        <button class="jewelry-v-slider__btn jewelry-v-nav-prev-{{ section.id }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <h3 class="jewelry-v-slider__active-title" id="jewelry-v-title-{{ section.id }}"></h3>
+        <button class="jewelry-v-slider__btn jewelry-v-nav-next-{{ section.id }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+      <div class="jewelry-v-slider__active-desc" id="jewelry-v-desc-{{ section.id }}"></div>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+(function() {
+  function init() {
+    const sectionId = '{{ section.id }}';
+    const container = document.querySelector(`#V-Slider-${sectionId}`);
+    if (!container || !window.Swiper) return;
+
+    const titleEl = container.querySelector('#jewelry-v-title-{{ section.id }}');
+    const descEl = container.querySelector('#jewelry-v-desc-{{ section.id }}');
+    const infoWrap = container.querySelector('#jewelry-v-info-{{ section.id }}');
+
+    const swiper = new Swiper(`#V-Slider-${sectionId} .swiper-jewelry-v`, {
+      slidesPerView: 1.5,
+      centeredSlides: true,
+      loop: true,
+      speed: 800,
+      allowTouchMove: false,
+      watchSlidesProgress: true,
+      updateOnImagesReady: true,
+      navigation: {
+        nextEl: `.jewelry-v-nav-next-${sectionId}`,
+        prevEl: `.jewelry-v-nav-prev-${sectionId}`,
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 5
+        }
+      },
+      on: {
+        init: function() {
+          this.update();
+          updateText(this);
+          applyV(this);
+          setTimeout(() => {
+            this.update();
+            applyV(this);
+          }, 300);
+        },
+        beforeTransitionStart: function() {
+          if (infoWrap) infoWrap.classList.add('is-changing');
+        },
+        transitionEnd: function() {
+          if (infoWrap) infoWrap.classList.remove('is-changing');
+        },
+        slideChange: function() {
+          updateText(this);
+        },
+        setTranslate: function() {
+          applyV(this);
+        }
+      }
+    });
+
+    function updateText(s) {
+      const active = s.slides[s.activeIndex];
+      if (active && titleEl && descEl) {
+        const title = active.getAttribute('data-title');
+        const desc = active.getAttribute('data-desc');
+        setTimeout(() => {
+          titleEl.textContent = title;
+          descEl.textContent = desc;
+        }, 300);
+      }
+    }
+
+    function applyV(s) {
+      const isMobile = window.innerWidth < 768;
+      const slides = s.slides;
+      
+      for (let i = 0; i < slides.length; i++) {
+        const slide = slides[i];
+        const progress = slide.progress;
+        const absProgress = Math.abs(progress);
+        const imgWrap = slide.querySelector('.jewelry-v-slider__img-container');
+
+        if (!imgWrap) continue;
+
+        // V-Shape: Regular V (∨) -> Center is LOWER, side rings go UP
+        const slope = isMobile ? 0 : 80;
+        const translateY = - (absProgress * slope);
+        
+        // High Zoom center: 1.45x
+        const scaleBase = isMobile ? 1.3 : 1.45;
+        const scale = scaleBase - (Math.min(absProgress, 3) * 0.3);
+
+        imgWrap.style.transform = `translate3d(0, ${translateY}px, 0) scale(${Math.max(0.6, scale)})`;
+        slide.style.zIndex = Math.round(100 - (absProgress * 20));
+        
+        // Visibility for exactly 5 slides total (Center + 2 on each side)
+        // Hide slides at progress 2.5 or more.
+        if (absProgress > 2.2) {
+          slide.style.opacity = 0;
+          slide.style.visibility = 'hidden';
+          slide.style.pointerEvents = 'none';
+        } else {
+          slide.style.opacity = progress === 0 ? 1 : Math.max(0.2, 0.9 - (absProgress * 0.35));
+          slide.style.visibility = 'visible';
+          slide.style.pointerEvents = 'auto';
+        }
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      swiper.update();
+      applyV(swiper);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  if (window.Shopify && window.Shopify.designMode) {
+    document.addEventListener('shopify:section:load', init);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Jewelry V-Slider",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "DISCOVER STYLES"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Discover diverse engagement ring styles, each embodying a distinct symbol of love and devotion"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Hidden Halo"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Intriguing brilliance from a concealed halo."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Jewelry V-Slider",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" }
+      ]
+    }
+  ]
+}
+{% endschema %}
