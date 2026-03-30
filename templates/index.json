@@ -139,80 +139,89 @@
     "jewelry_v_slider_xD64xF": {
       "type": "jewelry-v-slider",
       "blocks": {
-        "slide_qp9Afq": {
+        "slide_93xw69": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/styles-slider-nature.webp",
-            "title": "Nature",
-            "description": "Organic beauty, inspired by the world around us"
+            "image": "shopify://shop_images/by-shape-princess_2.webp",
+            "title": "Princess",
+            "description": "Capturing fire and brilliance in a square"
           }
         },
-        "slide_MLVjdM": {
+        "slide_bJ8fCL": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/styles-slider-sides-stones.webp",
-            "title": "Side Stones",
-            "description": "Exquisite accents framing a central masterpiece"
+            "image": "shopify://shop_images/by-shape-heart_1.webp",
+            "title": "Heart",
+            "description": "A romantic statement of your love - FOREVER"
           }
         },
-        "slide_PxQnkb": {
+        "slide_87HF8r": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/styles-slider-pave.webp",
-            "title": "Pave",
-            "description": "Dazzling diamonds, intricate elegance, endless enchantment"
+            "image": "shopify://shop_images/by-shape-radiant.webp",
+            "title": "Radiant",
+            "description": "Maximize brilliance in this rectangular show stopper"
           }
         },
-        "slide_C7hWgT": {
+        "slide_pyL7kW": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/styles-slider-three-stone.webp",
-            "title": "Three Stone",
-            "description": "Symbolic trilogy, past, present, future"
+            "image": "shopify://shop_images/by-shape-marquise.webp",
+            "title": "Marquise",
+            "description": "Long, narrow sparkle buster"
           }
         },
-        "slide_LtTHyn": {
+        "slide_WyGbna": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/styles-slider-halo.webp",
-            "title": "Halo",
-            "description": "Brilliant allure with a surrounding embrace"
+            "image": "shopify://shop_images/by-shape-emerald.webp",
+            "title": "Emerald",
+            "description": "Long, clean lines create the Hall of Mirrors"
           }
         },
-        "slide_8j3w7J": {
+        "slide_4KdETr": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/styles-slider-vintage.webp",
-            "title": "Vintage",
-            "description": "Nostalgic charm meets modern sophistication"
+            "image": "shopify://shop_images/by-shape-cushion.webp",
+            "title": "Cushion",
+            "description": "Cozy rounded corners with large brilliant facets"
           }
         },
-        "slide_cnFtN4": {
+        "slide_xQadF3": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/styles-slider-solitaire_1.jpg",
-            "title": "Solitaire",
-            "description": "Singular diamond brilliance, timeless and captivating"
+            "image": "shopify://shop_images/by-shape-round_1.webp",
+            "title": "Round",
+            "description": "The classic shape with the 58 facet Sparkler"
           }
         },
-        "slide_QDAYxA": {
+        "slide_H6HPeR": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/styles-slider-hidden-halo.webp",
-            "title": "Hidden Halo",
-            "description": "Intriguing brilliance from a concealed halo."
+            "image": "shopify://shop_images/by-shape-oval.webp",
+            "title": "Oval",
+            "description": "The timeless elongated shape that flatters the finger"
+          }
+        },
+        "slide_irUjFN": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/by-shape-pear.webp",
+            "title": "Pear",
+            "description": "Slim, teardrop shaped brilliance"
           }
         }
       },
       "block_order": [
-        "slide_qp9Afq",
-        "slide_MLVjdM",
-        "slide_PxQnkb",
-        "slide_C7hWgT",
-        "slide_LtTHyn",
-        "slide_8j3w7J",
-        "slide_cnFtN4",
-        "slide_QDAYxA"
+        "slide_93xw69",
+        "slide_bJ8fCL",
+        "slide_87HF8r",
+        "slide_pyL7kW",
+        "slide_WyGbna",
+        "slide_4KdETr",
+        "slide_xQadF3",
+        "slide_H6HPeR",
+        "slide_irUjFN"
       ],
       "name": "Jewelry V-Slider",
       "settings": {
