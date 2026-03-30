@@ -1,0 +1,583 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    background-color: {{ section.settings.bg_color }};
+  }
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+  
+  /* Prevent section-level horizontal scroll */
+  .custom-split-section {
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .custom-engage-container {
+    max-width: var(--page-width, 1400px);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Core structure */
+  .ce-blocks-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  
+  .engage-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .hidden-mobile { display: none !important; }
+  .hidden-desktop { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; box-sizing: border-box; }
+
+  /* Mobile Layout Styles (< 768px) */
+  .ce-mobile-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  .ce-mobile-icons img {
+    height: auto;
+    object-fit: contain;
+  }
+  .ce-mobile-plus {
+    font-size: 28px;
+    font-weight: 300;
+  }
+  .ce-mobile-heading {
+    font-size: 36px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin: 0 0 25px 0;
+    letter-spacing: 1px;
+    font-family: var(--font-heading-family);
+  }
+  .ce-mobile-subheading {
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 0px;
+    margin-bottom: 15px;
+    position: relative;
+    /* Negative margin to counteract image transparent canvas if needed */
+    top: -15px;
+  }
+  .ce-mobile-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    gap: 15px;
+  }
+  .mobile-btn-full {
+    width: 100%;
+    padding: 14px 20px;
+  }
+
+  /* Tablet Layout (768px to 1279px) */
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
+    .hidden-desktop { display: none !important; }
+    .hidden-mobile { display: flex !important; }
+    
+    .ce-blocks-wrapper {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: flex-start;
+      gap: 0;
+      row-gap: 50px;
+    }
+    
+    .engage-block:nth-child(1) { order: 1; flex: 0 0 45%; max-width: 45%; } /* Text 1 */
+    .engage-block:nth-child(2) { order: 3; flex: 0 0 100%; max-width: 100%; margin-top: 20px; } /* Media Bottom */
+    .engage-block:nth-child(3) { order: 2; flex: 0 0 45%; max-width: 45%; } /* Text 2 */
+  }
+
+  /* Desktop Layout (1280px+) */
+  @media screen and (min-width: 1280px) {
+    .hidden-desktop { display: none !important; }
+    .hidden-mobile { display: flex !important; }
+    
+    .ce-blocks-wrapper {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .engage-block { flex: 1; max-width: 100%; }
+    .engage-block--media { flex: 1.2; }
+    
+    .engage-block:nth-child(1) { order: 1; }
+    .engage-block:nth-child(2) { order: 2; }
+    .engage-block:nth-child(3) { order: 3; }
+  }
+
+  /* Text Block Styling */
+  .engage-block__icon img {
+    max-width: 65px;
+    height: auto;
+    margin-bottom: 24px;
+  }
+
+  .engage-block__heading {
+    margin: 0 0 15px 0;
+    font-size: 44px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .engage-block__text {
+    font-size: 18px;
+    font-weight:500;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    max-width: 340px; /* keeps text narrow like the design */
+  }
+  .engage-block__text p {
+    margin: 0;
+  }
+
+  .engage-block__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 30px;
+    border: 1px solid #000;
+    border-radius: 40px;
+    text-decoration: none;
+    color: #000;
+    background: transparent;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    gap: 8px;
+  }
+  
+  .ce-btn-arrow {
+    width: 10px;
+    height: 10px;
+    display: block;
+  }
+  
+  .engage-block__btn:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  /* Media Block Styling */
+  .media-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: visible; /* Important for floating diamond */
+  }
+
+  .media-wrapper img.main-media-img {
+    display: block;
+    max-height: 500px;
+  }
+  
+  @media screen and (max-width: 1279px) {
+    .media-wrapper img.main-media-img {
+      width: 100%;
+    }
+    .engage-block--media {
+      margin-bottom: var(--media-mb, 0px);
+    }
+  }
+
+.split-section-description p {
+  font-size:14px;
+}
+
+  /* Floating Image Animation */
+  @keyframes floatUpAndDown {
+    0%   { transform: translate(-50%, 0px); }
+    50%  { transform: translate(-50%, -20px); }
+    100% { transform: translate(-50%, 0px); }
+  }
+
+  .floating-asset {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    animation: floatUpAndDown 3.5s ease-in-out infinite;
+    z-index: 2;
+    top: var(--top-mobile);
+  }
+
+  @media screen and (min-width: 1280px) {
+    .floating-asset {
+      top: var(--top-desktop);
+    }
+  }
+
+  .split-section-description {
+    text-align: center;
+    font-size: 13px;
+    padding: 0 1.5rem;
+  }
+  .split-section-description.position-top {
+    margin-bottom: 40px;
+  }
+  .split-section-description.position-bottom {
+    margin-top: 24px;
+  }
+  .split-section-description a {
+    text-decoration: underline;
+    font-weight: bold;
+    color: #000;
+  }
+  .split-section-description p {
+      margin: 0;
+  }
+{%- endstyle -%}
+
+<div class="custom-split-section section-{{ section.id }}-padding">
+  {%- if section.settings.section_heading != blank -%}
+    <h2 class="text-center" style="text-align:center; margin-bottom: 40px; font-weight: 500;">{{ section.settings.section_heading }}</h2>
+  {%- endif -%}
+
+  {%- if section.settings.description != blank and section.settings.description_position == 'top' -%}
+    <div class="split-section-description position-top">
+      {{ section.settings.description }}
+    </div>
+  {%- endif -%}
+
+  <div class="custom-engage-container">
+    
+    {%- assign text_blocks = section.blocks | where: 'type', 'text_block' -%}
+    {%- assign text_1 = text_blocks[0] -%}
+    {%- assign text_2 = text_blocks[1] -%}
+
+    <!-- Mobile Top Content (< 768px) -->
+    <div class="hidden-desktop">
+      <div class="ce-mobile-icons">
+        {%- if text_1.settings.icon != blank -%}
+          <img src="{{ text_1.settings.icon | image_url: width: 80 }}" alt="{{ text_1.settings.icon.alt | escape }}" loading="lazy" width="45">
+        {%- endif -%}
+        <span class="ce-mobile-plus">+</span>
+        {%- if text_2.settings.icon != blank -%}
+          <img src="{{ text_2.settings.icon | image_url: width: 80 }}" alt="{{ text_2.settings.icon.alt | escape }}" loading="lazy" width="45">
+        {%- endif -%}
+      </div>
+      {%- if section.settings.mobile_heading != blank -%}
+        <h2 class="ce-mobile-heading">{{ section.settings.mobile_heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    <!-- Main Wrapper Core (Tablet & Desktop Texts, Media Always) -->
+    <div class="ce-blocks-wrapper">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'text_block' -%}
+          <div class="engage-block engage-block--text hidden-mobile" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon != blank -%}
+              <div class="engage-block__icon">
+                <img src="{{ block.settings.icon | image_url: width: 100 }}" alt="{{ block.settings.icon.alt | escape }}" loading="lazy" width="65" height="auto">
+              </div>
+            {%- endif -%}
+            
+            {%- if block.settings.heading != blank -%}
+              <h3 class="engage-block__heading">{{ block.settings.heading }}</h3>
+            {%- endif -%}
+            
+            {%- if block.settings.subheading != blank -%}
+              <div class="engage-block__text">
+                {{ block.settings.subheading }}
+              </div>
+            {%- endif -%}
+            
+            {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+              <a href="{{ block.settings.button_link }}" class="engage-block__btn">
+                <span>{{ block.settings.button_label | remove: '>' | remove: '&gt;' | strip }}</span>
+                <svg class="ce-btn-arrow" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7.87891 24.5722L18.1213 14.3298L7.87891 4.0874" stroke="currentColor" stroke-width="2.5"></path>
+                </svg>
+              </a>
+            {%- endif -%}
+          </div>
+
+        {%- elsif block.type == 'media_block' -%}
+          <div class="engage-block engage-block--media" {{ block.shopify_attributes }} style="--media-mb: {{ block.settings.media_margin_bottom }}px;">
+            <div class="media-wrapper">
+              
+              {%- if block.settings.floating_image != blank -%}
+                <img class="floating-asset" src="{{ block.settings.floating_image | image_url: width: 300 }}" alt="Floating effect" style="--top-desktop: {{ block.settings.floating_position_top }}%; --top-mobile: {{ block.settings.floating_position_top_mobile }}%; max-width: {{ block.settings.floating_image_max_width }}px;">
+              {%- endif -%}
+
+              {%- if block.settings.image != blank -%}
+                <img class="main-media-img" src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.image.alt | escape }}" loading="lazy">
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+              
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <!-- Mobile Bottom Content (< 768px) -->
+    <div class="hidden-desktop">
+      {%- if section.settings.mobile_subheading != blank -%}
+        <div class="ce-mobile-subheading">{{ section.settings.mobile_subheading }}</div>
+      {%- endif -%}
+      
+      <div class="ce-mobile-buttons">
+        {%- if text_1 != blank and text_1.settings.button_label != blank -%}
+          <a href="{{ text_1.settings.button_link }}" class="engage-block__btn mobile-btn-full">{{ text_1.settings.button_label | remove: '>' | remove: '&gt;' | strip }}</a>
+        {%- endif -%}
+        {%- if text_2 != blank and text_2.settings.button_label != blank -%}
+          <a href="{{ text_2.settings.button_link }}" class="engage-block__btn mobile-btn-full">{{ text_2.settings.button_label | remove: '>' | remove: '&gt;' | strip }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+  </div>
+
+  {%- if section.settings.description != blank and section.settings.description_position == 'bottom' -%}
+    <div class="split-section-description position-bottom">
+      {{ section.settings.description }}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Design Your Ring",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Overrides (< 768px)"
+    },
+    {
+      "type": "text",
+      "id": "mobile_heading",
+      "label": "Mobile Heading",
+      "default": "DESIGN YOUR RING"
+    },
+    {
+      "type": "text",
+      "id": "mobile_subheading",
+      "label": "Mobile Subheading",
+      "default": "Build your own ring in 2 easy steps"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f7f7f7"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description Text",
+      "default": "<p>Can't decide? <strong>TAKE OUR QUIZ</strong> find what you're looking for in 2 minutes</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_position",
+      "label": "Description Position",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "bottom", "label": "Bottom" }
+      ],
+      "default": "bottom"
+    },
+    {
+      "type": "header",
+      "content": "Desktop Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Mobile Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top Mobile",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom Mobile",
+      "default": 15
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_block",
+      "name": "Text Content",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Small Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "RING SETTING"
+        },
+        {
+          "type": "richtext",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "<p>Elevate your love story with our exquisite collection of engagement ring designs.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Start With a Setting"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    },
+    {
+      "type": "media_block",
+      "name": "Center Image / Video",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Main Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "floating_image",
+          "label": "Floating Animated Image (e.g. Diamond)",
+          "info": "This image floats up and down over the main image."
+        },
+        {
+          "type": "range",
+          "id": "floating_position_top",
+          "label": "Floating Image Top Position (%)",
+          "min": -50,
+          "max": 100,
+          "step": 2,
+          "default": 0,
+          "info": "Vertical position for desktop (1280px+)."
+        },
+        {
+          "type": "range",
+          "id": "floating_position_top_mobile",
+          "label": "Floating Image Top Position Mobile (%)",
+          "min": -50,
+          "max": 100,
+          "step": 2,
+          "default": -2,
+          "info": "Vertical position for screens 1279px and below."
+        },
+        {
+          "type": "range",
+          "id": "floating_image_max_width",
+          "min": 50,
+          "max": 400,
+          "step": 5,
+          "unit": "px",
+          "label": "Floating Image Max Width",
+          "default": 350
+        },
+        {
+          "type": "range",
+          "id": "media_margin_bottom",
+          "label": "Bottom Gap Adjustment (< 1280px)",
+          "min": -150,
+          "max": 0,
+          "step": 2,
+          "unit": "px",
+          "default": -30,
+          "info": "Pull up the content below the image on Mobile/Tablet to hide empty canvas."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Design Your Ring",
+      "blocks": [
+        { 
+          "type": "text_block",
+          "settings": {
+            "heading": "RING SETTING",
+            "button_label": "Start With a Setting"
+          }
+        },
+        { 
+          "type": "media_block"
+        },
+        { 
+          "type": "text_block",
+          "settings": {
+            "heading": "CENTER STONE",
+            "button_label": "Start With a Stone"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
