@@ -232,11 +232,83 @@
         "padding_top": 60,
         "padding_bottom": 60
       }
+    },
+    "trustpilot_slider_R8zUyB": {
+      "type": "trustpilot-slider",
+      "blocks": {
+        "review_ha6dJB": {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "Gene F.",
+            "review_text": "Keyzar made it very easy for me to customize and select the perfect ring for my fiance. The way my schedule is I knew it'd be tough to actually go out and search for one. Their online shopping tool was great. If you're hesitant to shop for a ring online, don't be! I couldn't be happier!"
+          }
+        },
+        "review_HBN8D7": {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "Kris A.",
+            "review_text": "100% recommend, I was looking around for a couple of months before I found Keyzar. They had the exact style of ring that I was looking for and I loved how I was able to customize the size diamond I was looking for as well. Customer service was fantastic and the ring was made and to my door within a few weeks time."
+          }
+        },
+        "review_QtKLDY": {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "Genevieve V.",
+            "review_text": "The website made it very easy to pick out a stone and setting for my ring! I love that I could visually see what it would look like. I was hesitant to buy online instead of seeing things in person. The turn around was pretty quick and the delivery was tracked and needed my signature. I appreciated that. I LOVE my new ring. It is gorgeous and so perfect!"
+          }
+        },
+        "review_CzWzGg": {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "Ian D.",
+            "review_text": "Absolutely stunning pieces but above all the customer service is by far the best I’ve dealt with of any company. They will always take your call and really put in the effort to help with any issue or concern you have. Email correspondence was always followed up timely and efficiently. Highly recommend. They treat you like a customer for life."
+          }
+        },
+        "review_qLTDhb": {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "Cameron L.",
+            "review_text": "The experience was really great. The team was super helpful throughout the entire process, especially when my original order was not exactly what I was wanting. When the ring came in, I was amazed, and the design is exactly what I was, hoping for I would highly suggest and recommend the company to anybody. I really do appreciate all of the help in the process."
+          }
+        },
+        "review_M47fUy": {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "Brendan R.",
+            "review_text": "Firstly, the ring is gorgeous and the bride to be is beyond delighted. The customer service was superb as well. I originally ordered the wrong ring size by accident and after panicking I reached out to see if we could find a solution. I was contacted immediately and they took care of everything. Wonderful experience, thanks Keyzar."
+          }
+        },
+        "review_wwe8ce": {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "Emmanuil V.",
+            "review_text": "What made my experience great was the customer care they showed, the speed at which they made the ring, as well as the keeping well informed. I greatly appreciate the service they have done for me and the discounts they provided. Were also very helpful overall their service was nothing short of excellent."
+          }
+        }
+      },
+      "block_order": [
+        "review_ha6dJB",
+        "review_HBN8D7",
+        "review_QtKLDY",
+        "review_CzWzGg",
+        "review_qLTDhb",
+        "review_M47fUy",
+        "review_wwe8ce"
+      ],
+      "name": "Trustpilot Slider",
+      "settings": {
+        "subtitle": "See what our clients have to say",
+        "bg_color": "#F9F1EB",
+        "disable_swiper_assets": false,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
     }
   },
   "order": [
     "image_banner",
     "jewelry_v_slider_mkJggf",
-    "jewelry_v_slider_xD64xF"
+    "jewelry_v_slider_xD64xF",
+    "trustpilot_slider_R8zUyB"
   ]
 }
