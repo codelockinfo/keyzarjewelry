@@ -40,8 +40,8 @@
     opacity: 0.8;
   }
 
-  .trustpilot-slider-{{ section.id }} .swiper-trustpilot {
-    padding: 20px 0 50px;
+  .trustpilot-slider-{{ section.id }} .swiper {
+    padding: 20px 0 60px;
   }
 
   .trustpilot-slider-{{ section.id }} .review-card {
@@ -62,10 +62,10 @@
   }
 
   .trustpilot-slider-{{ section.id }} .reviewer-name {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #1a1a1a;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: #000000;
   }
 
   .trustpilot-slider-{{ section.id }} .star-rating {
@@ -77,16 +77,22 @@
   .trustpilot-slider-{{ section.id }} .star-rating svg {
     width: 18px;
     height: 18px;
-    fill: #f5c5a0; /* Or #00b67a for official trustpilot green stars, but user image shows beige/gold */
+    fill: #e7c6af;
+  }
+
+  .trustpilot-slider-{{ section.id }} .review-divider {
+    border-top: 1px solid #e0e0e0;
+    margin: 0 0 20px;
+    width: 100%;
+    display: block;
   }
 
   .trustpilot-slider-{{ section.id }} .review-text {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.6;
-    color: #333;
+    color: #000000;
     margin: 0;
     font-weight: 400;
-    /* Limit lines if needed */
     display: -webkit-box;
     -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
@@ -94,15 +100,17 @@
   }
 
   .trustpilot-slider-{{ section.id }} .swiper-pagination-bullet {
-    background: #d4bda9;
-    opacity: 0.4;
-    width: 8px;
-    height: 8px;
+    background: #e5c4ac;
+    opacity: 1;
+    width: 10px;
+    height: 10px;
+    margin: 0 6px !important;
+    border: 1px solid transparent;
   }
 
   .trustpilot-slider-{{ section.id }} .swiper-pagination-bullet-active {
-    opacity: 1;
-    background: #1a1a1a;
+    background: transparent;
+    border: 1px solid #e5c4ac;
   }
 
   @media screen and (max-width: 767px) {
@@ -117,7 +125,7 @@
 {%- endstyle -%}
 
 <div class="trustpilot-slider-{{ section.id }}">
-  <div class="page-width">
+  <div class="page-width" style="max-width: 1700px;">
     <div class="trustpilot-header">
       <div class="trustpilot-logo">
         <svg viewBox="0 0 24 24"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
@@ -137,6 +145,7 @@
                   <svg viewBox="0 0 24 24"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
                 {%- endfor -%}
               </div>
+              <div class="review-divider"></div>
               <p class="review-text">"{{ block.settings.review_text }}"</p>
             </div>
           </div>
@@ -164,10 +173,20 @@
         clickable: true,
       },
       breakpoints: {
-        768: {
+        991: {
           slidesPerView: 3,
           centeredSlides: false,
           spaceBetween: 30
+        },
+        768: {
+          slidesPerView: 2,
+          centeredSlides: false,
+          spaceBetween: 20
+        },
+        320: {
+          slidesPerView: 1.2,
+          centeredSlides: false,
+          spaceBetween: 10
         }
       }
     });
