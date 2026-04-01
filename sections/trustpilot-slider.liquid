@@ -156,11 +156,6 @@
   </div>
 </div>
 
-{%- unless section.settings.disable_swiper_assets -%}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-{%- endunless -%}
-
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     new Swiper('.swiper-trustpilot-{{ section.id }}', {
@@ -208,13 +203,6 @@
       "id": "bg_color",
       "label": "Background Color",
       "default": "#F9F1EB"
-    },
-    {
-      "type": "checkbox",
-      "id": "disable_swiper_assets",
-      "label": "Disable Swiper Assets",
-      "info": "Check if Swiper is already loaded in your theme.",
-      "default": false
     },
     {
       "type": "range",
