@@ -48,32 +48,91 @@
         "show_text_below": false
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "jewelry_v_slider_mkJggf": {
+      "type": "jewelry-v-slider",
+      "blocks": {
+        "slide_hxzREN": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-nature.webp",
+            "title": "Nature",
+            "description": "Organic beauty, inspired by the world around us"
+          }
+        },
+        "slide_VQgPCf": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-sides-stones.webp",
+            "title": "Side Stones",
+            "description": "Exquisite accents framing a central masterpiece"
+          }
+        },
+        "slide_zCCt49": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-pave.webp",
+            "title": "Pave",
+            "description": "Dazzling diamonds, intricate elegance, endless enchantment"
+          }
+        },
+        "slide_DqQqny": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-three-stone.webp",
+            "title": "Three Stone",
+            "description": "Symbolic trilogy, past, present, future"
+          }
+        },
+        "slide_CmNeHb": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-halo.webp",
+            "title": "Halo",
+            "description": "Brilliant allure with a surrounding embrace"
+          }
+        },
+        "slide_7LmjXw": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-vintage.webp",
+            "title": "Vintage",
+            "description": "Nostalgic charm meets modern sophistication"
+          }
+        },
+        "slide_dakdUU": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-solitaire_1.jpg",
+            "title": "Solitaire",
+            "description": "Singular diamond brilliance, timeless and captivating"
+          }
+        },
+        "slide_TWQeMt": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/styles-slider-hidden-halo.webp",
+            "title": "Hidden Halo",
+            "description": "Intriguing brilliance from a concealed halo."
+          }
+        }
+      },
+      "block_order": [
+        "slide_hxzREN",
+        "slide_VQgPCf",
+        "slide_zCCt49",
+        "slide_DqQqny",
+        "slide_CmNeHb",
+        "slide_7LmjXw",
+        "slide_dakdUU",
+        "slide_TWQeMt"
+      ],
+      "name": "Jewelry V-Slider",
       "settings": {
-        "collection": "all",
-        "products_to_show": 8,
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 44,
-        "padding_bottom": 36
+        "title": "DISCOVER STYLES",
+        "description": "Discover diverse engagement ring styles, each embodying a distinct symbol of love and devotion",
+        "bg_color": "#ffffff",
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "custom_engagement_split_izUcA6": {
@@ -131,7 +190,6 @@
   },
   "order": [
     "image_banner",
-    "featured_collection",
-    "custom_engagement_split_izUcA6"
+    "jewelry_v_slider_mkJggf"
   ]
 }
