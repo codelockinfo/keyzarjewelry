@@ -90,16 +90,18 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     new Swiper(".logo-mobile", {
-      slidesPerView: 2,
-      spaceBetween: 20,
+      slidesPerView: 2.5,
+      spaceBetween: 30,
       loop: true,
+      allowTouchMove: false, 
+      speed: 5000,
       autoplay: {
-        delay: 2000,
+        delay: 0,
         disableOnInteraction: false,
       },
       breakpoints: {
         480: {
-          slidesPerView: 3
+          slidesPerView: 3.5
         }
       }
     });
@@ -123,6 +125,8 @@
 
 .logo-item img,
 .logo-item .svg-wrapper svg {
+  max-height: 60px;
+  max-width: 150px;
   height: auto;
   display: block;
   margin: 0 auto;
@@ -130,10 +134,12 @@
 }
 
 .logo-item .svg-wrapper svg {
-  width: 100%;
+  width: auto;
 }
 .svg-wrapper {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /* Desktop */
 .logo-desktop {
@@ -149,7 +155,12 @@
   display: none;
 }
 
-/* Mobile View */
+/* Mobile View Marquee Smoothness */
+.logo-mobile .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
+/* Mobile View Visibility */
 @media (max-width: 768px) {
   .logo-desktop {
     display: none;
