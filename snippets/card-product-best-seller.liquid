@@ -1,0 +1,366 @@
+{% comment %}
+  Renders a custom product card for the Best Sellers section
+{% endcomment %}
+
+<div class="bs-card-wrapper best-seller-card">
+  <div class="bs-card-inner">
+    <div class="bs-image-container">
+      <a href="{{ card_product.url | default: '#' }}" class="bs-media-link">
+        {%- if card_product.featured_media -%}
+          <img
+            srcset="{%- if card_product.featured_media.preview_image.width >= 165 -%}{{ card_product.featured_media.preview_image | image_url: width: 165 }} 165w,{%- endif -%}
+              {%- if card_product.featured_media.preview_image.width >= 360 -%}{{ card_product.featured_media.preview_image | image_url: width: 360 }} 360w,{%- endif -%}
+              {%- if card_product.featured_media.preview_image.width >= 533 -%}{{ card_product.featured_media.preview_image | image_url: width: 533 }} 533w,{%- endif -%}
+              {{ card_product.featured_media.preview_image | image_url }} {{ card_product.featured_media.preview_image.width }}w"
+            src="{{ card_product.featured_media.preview_image | image_url: width: 533 }}"
+            sizes="(min-width: 1200px) 400px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+            alt="{{ card_product.featured_media.alt | escape }}"
+            loading="lazy"
+            class="bs-main-img"
+            width="{{ card_product.featured_media.preview_image.width }}"
+            height="{{ card_product.featured_media.preview_image.height }}"
+          >
+        {%- else -%}
+          <div class="bs-placeholder">
+            {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endif -%}
+      </a>
+
+      <!-- Overlays -->
+      <div class="bs-overlays">
+        {%- if card_product.compare_at_price > card_product.price and card_product.available -%}
+          {%- assign discount = card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price | round -%}
+          <div class="bs-badge">{{ discount }}% OFF</div>
+        {%- elsif card_product.tags contains 'Customizable' or card_product.tags contains 'customizable' -%}
+          <div class="bs-badge">CUSTOMIZABLE</div>
+        {%- endif -%}
+
+        <button class="bs-icon bs-wishlist" aria-label="Add to wishlist">
+          <svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M10 18.35l-1.45-1.32C3.4 12.36 1 10.28 1 7.5 1 5.22 2.78 3.5 5 3.5c1.24 0 2.43.58 3.19 1.5C9.23 4.08 10.42 3.5 11.66 3.5 13.9 3.5 15.68 5.22 15.68 7.5c0 2.78-2.4 4.86-7.55 9.54L10 18.35z"/>
+          </svg>
+        </button>
+
+        {%- assign frames = "" -%}
+        {%- assign frames_count = 0 -%}
+        {%- for media in card_product.media -%}
+          {%- if media.alt contains '360' or media.alt contains 'spin' -%}
+            {%- assign img_url = media | image_url: width: 800 -%}
+            {%- if frames == "" -%}
+               {%- assign frames = img_url -%}
+            {%- else -%}
+               {%- assign frames = frames | append: "," | append: img_url -%}
+            {%- endif -%}
+            {%- assign frames_count = frames_count | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if frames_count == 0 and card_product.media.size > 5 -%}
+          {% comment %} Fallback: If no 360-tagged images, take all images except the first few (main views) {% endcomment %}
+          {%- for media in card_product.media offset: 1 -%}
+            {%- assign img_url = media | image_url: width: 800 -%}
+            {%- if frames == "" -%}
+               {%- assign frames = img_url -%}
+            {%- else -%}
+               {%- assign frames = frames | append: "," | append: img_url -%}
+            {%- endif -%}
+            {%- assign frames_count = frames_count | plus: 1 -%}
+          {%- endfor -%}
+        {%- endif -%}
+        
+        {%- assign frames_array = frames | split: "," -%}
+
+        {%- if frames_count > 0 -%}
+          <button class="bs-icon bs-360" aria-label="View 360" 
+            data-360-button 
+            data-handle="{{ card_product.handle }}" 
+            data-id="{{ card_product.id }}"
+            data-frames='{{ frames_array | json }}'>
+            <span>360&deg;</span>
+          </button>
+        {%- endif -%}
+
+        <div class="bs-360-viewer" data-360-viewer>
+          <canvas class="bs-360-canvas"></canvas>
+          <div class="bs-360-loading">Loading...</div>
+          <button class="bs-360-close" aria-label="Close 360" data-360-close>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+          <div class="bs-360-drag-hint">
+            <svg viewBox="0 0 100 20" width="60" height="15"><path d="M5 10c15-8 35-8 50 0M10 5l-5 5 5 5M50 15l5-5-5-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bs-content">
+      <div class="bs-swatches">
+        {%- for option in card_product.options_with_values -%}
+          {%- if option.name == 'Metal' or option.name == 'Color' or option.name == 'color' or option.name == 'metal' -%}
+            {%- for value in option.values limit: 5 -%}
+              <span class="bs-swatch" style="background-color: {{ value | downcase | replace: ' ', '' }};" title="{{ value }}"></span>
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <h3 class="bs-title">
+        <a href="{{ card_product.url }}" class="bs-link">
+          {{ card_product.title | default: 'Sample Product' }}
+        </a>
+      </h3>
+
+      <div class="bs-price">
+        {%- if card_product -%}
+          {% render 'price', product: card_product, show_compare_at_price: true %}
+          
+          {%- if card_product.compare_at_price > card_product.price -%}
+             {%- assign discount_percent = card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price | round -%}
+             <span class="bs-discount-badge">{{ discount_percent }}% OFF</span>
+          {%- endif -%}
+        {%- else -%}
+          <span class="price">Rs. 25,000.00 INR</span>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .bs-card-wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .bs-image-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* REQUIRED for aspect ratio */
+    background: #f4f4f4;
+    overflow: hidden;
+  }
+
+  .bs-media-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 1;
+  }
+
+  .bs-main-img, .bs-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .bs-placeholder svg {
+    width: 100%;
+    height: 100%;
+    fill: #ddd;
+  }
+
+  .bs-overlays {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .bs-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #000;
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .bs-icon {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    pointer-events: auto;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s ease;
+  }
+
+  .bs-icon:hover {
+    transform: scale(1.1);
+  }
+
+  .bs-wishlist {
+    top: 10px;
+    right: 10px;
+  }
+
+  .bs-360 {
+    bottom: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(4px);
+    font-size: 11px;
+    font-weight: 700;
+    color: #444;
+  }
+
+  .bs-360-viewer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f4f4f4;
+    z-index: 15;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bs-360-viewer.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .bs-360-canvas {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .bs-360-canvas:active {
+    cursor: grabbing;
+  }
+
+  .bs-360-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #999;
+  }
+
+  .bs-360-close {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    z-index: 20;
+    color: #000;
+  }
+
+  .bs-360-drag-hint {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #999;
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  .bs-content {
+    padding-top: 15px;
+  }
+
+  .bs-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .bs-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .bs-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .bs-swatches {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .bs-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.15);
+    cursor: pointer;
+    position: relative;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  .bs-price {
+    margin-top: 6px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .bs-discount-badge {
+    color: #d73948;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .price--on-sale .price-item--regular {
+    text-decoration: line-through;
+    color: #999;
+    margin-right: 5px;
+  }
+
+  .price-item--sale {
+    font-weight: 700;
+    color: #000;
+  }
+
+  /* Swatch Colors Fallback */
+  .bs-swatch[style*="silver"] { background-color: #C0C0C0 !important; }
+  .bs-swatch[style*="platinum"] { background-color: #E5E4E2 !important; }
+  .bs-swatch[style*="yellow gold"] { background-color: #FFD700 !important; }
+  .bs-swatch[style*="rose gold"] { background-color: #B76E79 !important; }
+</style>

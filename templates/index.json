@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "image_banner": {
@@ -303,12 +294,25 @@
         "padding_top": 60,
         "padding_bottom": 60
       }
+    },
+    "best_sellers_slider": {
+      "type": "best-sellers-slider",
+      "settings": {
+        "title": "OUR BEST SELLERS",
+        "collection": "all",
+        "products_to_show": 8,
+        "button_label": "EXPLORE MORE",
+        "bg_color": "#fdfaf7",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
     }
   },
   "order": [
     "image_banner",
     "jewelry_v_slider_mkJggf",
     "jewelry_v_slider_xD64xF",
-    "trustpilot_slider_R8zUyB"
+    "trustpilot_slider_R8zUyB",
+    "best_sellers_slider"
   ]
 }
