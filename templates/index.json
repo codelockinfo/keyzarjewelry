@@ -145,7 +145,7 @@
             "heading": "RING SETTING",
             "subheading": "<p>Elevate your love story with our exquisite collection of engagement ring designs.</p>",
             "button_label": "Start With a Setting",
-            "button_link": ""
+            "button_link": "shopify://collections/ring"
           }
         },
         "media_block_LJAGNW": {
@@ -166,7 +166,7 @@
             "heading": "CENTER STONE",
             "subheading": "<p>Elevate your love story with our exquisite collection of engagement ring designs.</p>",
             "button_label": "Start With a Stone",
-            "button_link": ""
+            "button_link": "shopify://collections/ring"
           }
         }
       },
