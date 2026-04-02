@@ -129,6 +129,240 @@
     font-size: 11px;
     text-transform: uppercase;
   }
+
+  .bs-card-wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .bs-image-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    background: #f4f4f4;
+    overflow: hidden;
+  }
+
+  .bs-media-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 1;
+  }
+
+  .bs-main-img, .bs-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .bs-placeholder svg {
+    width: 100%;
+    height: 100%;
+    fill: #ddd;
+  }
+
+  .bs-overlays {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .bs-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #000;
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .bs-icon {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    pointer-events: auto;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s ease;
+  }
+
+  .bs-icon:hover {
+    transform: scale(1.1);
+  }
+
+  .bs-wishlist {
+    top: 10px;
+    right: 10px;
+  }
+
+  .bs-360 {
+    bottom: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(4px);
+    font-size: 11px;
+    font-weight: 700;
+    color: #444;
+  }
+
+  .bs-360-viewer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f4f4f4;
+    z-index: 15;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bs-360-viewer.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .bs-360-canvas {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .bs-360-canvas:active {
+    cursor: grabbing;
+  }
+
+  .bs-360-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #999;
+  }
+
+  .bs-360-close {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    z-index: 20;
+    color: #000;
+  }
+
+  .bs-360-drag-hint {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #999;
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  .bs-content {
+    padding-top: 15px;
+  }
+
+  .bs-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .bs-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .bs-swatches {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .bs-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.15);
+    cursor: pointer;
+    position: relative;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  .bs-price {
+    margin-top: 6px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .bs-discount-badge {
+    color: #d73948;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .price--on-sale .price-item--regular {
+    text-decoration: line-through;
+    color: #999;
+    margin-right: 5px;
+  }
+
+  .price-item--sale {
+    font-weight: 700;
+    color: #000;
+  }
+
+  .bs-swatch.is-active {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+  }
+
+  /* Swatch Colors Fallback */
+  .bs-swatch[style*="silver"] { background-color: #C0C0C0 !important; }
+  .bs-swatch[style*="platinum"] { background-color: #E5E4E2 !important; }
+  .bs-swatch[style*="yellow gold"] { background-color: #FFD700 !important; }
+  .bs-swatch[style*="rose gold"] { background-color: #B76E79 !important; }
 {%- endstyle -%}
 
 <div class="best-sellers-{{ section.id }} section-{{ section.id }}-padding isolate">
@@ -223,6 +457,23 @@
         this.loadFrames();
         this.bindEvents();
         this.render();
+      }
+
+      updateFrames(newFrames) {
+        if (!newFrames || newFrames.length === 0) return;
+        this.framesData = newFrames;
+        this.totalFrames = newFrames.length;
+        this.frames = [];
+        this.lastDrawnFrame = -1;
+        this.currentFrame = 0;
+        this.targetFrame = 0;
+        
+        if (this.loading) {
+          this.loading.style.display = 'block';
+          this.loading.textContent = 'Loading...';
+        }
+        
+        this.loadFrames();
       }
 
       resize() {
@@ -381,6 +632,41 @@
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         btn.closest('[data-360-viewer]').classList.remove('is-active');
+      });
+    });
+
+    // Swatch Interaction
+    document.querySelectorAll('.bs-swatch').forEach(swatch => {
+      swatch.addEventListener('click', function() {
+        const card = this.closest('.best-seller-card');
+        const color = this.dataset.color;
+        const btn360 = card.querySelector('[data-360-button]');
+        if (!btn360) return;
+
+        const variantMap = JSON.parse(btn360.dataset.variantMap || '{}');
+        const variantData = variantMap[color];
+
+        if (variantData) {
+          // Update Active Swatch
+          card.querySelectorAll('.bs-swatch').forEach(s => s.classList.remove('is-active'));
+          this.classList.add('is-active');
+
+          // Update Main Image
+          const mainImg = card.querySelector('.bs-main-img');
+          if (mainImg && variantData.image) {
+            mainImg.src = variantData.image;
+            mainImg.srcset = variantData.image; // Simplified for demo
+          }
+
+          // Update 360 Frames
+          if (variantData.frames) {
+            btn360.dataset.frames = JSON.stringify(variantData.frames);
+            const viewer = card.querySelector('[data-360-viewer]');
+            if (viewer && viewer.instance) {
+              viewer.instance.updateFrames(variantData.frames);
+            }
+          }
+        }
       });
     });
   });

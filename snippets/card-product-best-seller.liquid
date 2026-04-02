@@ -71,12 +71,104 @@
         
         {%- assign frames_array = frames | split: "," -%}
 
+        {%- assign variant_map = "{" -%}
+        {%- assign color_options = "" -%}
+        {%- assign default_color = "" -%}
+        {%- assign initial_frames = frames_array -%}
+        
+        {%- comment -%}
+          Try to map colors to their featured images and 360 images
+        {%- endcomment -%}
+        {%- for option in card_product.options_with_values -%}
+          {%- assign opt_name = option.name | downcase -%}
+          {%- if opt_name contains 'color' or opt_name contains 'metal' -%}
+            {%- assign color_options = option.values -%}
+            {%- assign default_color = option.values[0] -%}
+            {%- for value in option.values -%}
+              {%- assign color_val = value | downcase -%}
+              {%- assign product_img = card_product.featured_media | image_url: width: 533 -%}
+              {%- assign v_image = product_img -%}
+              {%- assign v_frames = "" -%}
+              
+              {%- for variant in card_product.variants -%}
+                {%- if variant.options contains value -%}
+                   {%- if variant.featured_media and v_image == product_img -%}
+                     {%- assign v_image = variant.featured_media | image_url: width: 533 -%}
+                   {%- endif -%}
+                   
+                   {%- comment -%} Check the 360_images metafield first {%- endcomment -%}
+                   {%- if variant.metafields.custom['360_images'].value != blank -%}
+                     {%- for image in variant.metafields.custom['360_images'].value -%}
+                        {%- assign f_url = image | image_url: width: 800 -%}
+                        {%- if v_frames == "" -%}
+                          {%- assign v_frames = f_url -%}
+                        {%- else -%}
+                          {%- assign v_frames = v_frames | append: "," | append: f_url -%}
+                        {%- endif -%}
+                     {%- endfor -%}
+                     {%- break -%}
+                   {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {%- if v_frames == "" -%}
+                {%- comment -%} Fallback to alt-text based filtering if no metafield found {%- endcomment -%}
+                {%- for media in card_product.media -%}
+                  {%- assign m_alt = media.alt | downcase -%}
+                  {%- if m_alt contains '360' or m_alt contains 'spin' -%}
+                    {%- assign match = false -%}
+                    {%- if m_alt contains color_val -%}
+                      {%- assign match = true -%}
+                      {%- if color_val == 'gold' -%}
+                        {%- if m_alt contains 'rose gold' or m_alt contains 'white gold' -%}
+                          {%- assign match = false -%}
+                        {%- endif -%}
+                      {%- endif -%}
+                    {%- endif -%}
+
+                    {%- if match -%}
+                      {%- assign f_url = media | image_url: width: 800 -%}
+                      {%- if v_frames == "" -%}
+                        {%- assign v_frames = f_url -%}
+                      {%- else -%}
+                        {%- assign v_frames = v_frames | append: "," | append: f_url -%}
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+
+              {%- if v_frames == "" -%}
+                {%- comment -%} Final fallback: Use generic product frames if NO variant-specific frames exist {%- endcomment -%}
+                {%- assign v_frames = frames -%}
+              {%- endif -%}
+
+              {%- assign v_frames_arr = v_frames | split: "," -%}
+              {%- if value == default_color -%}
+                {%- assign initial_frames = v_frames_arr -%}
+              {%- endif -%}
+
+              {%- capture v_item -%}
+                {{ value | json }}: {
+                  "image": {{ v_image | json }},
+                  "frames": {{ v_frames_arr | json }}
+                }
+              {%- endcapture -%}
+              
+              {%- if forloop.first == false -%}{%- assign variant_map = variant_map | append: "," -%}{%- endif -%}
+              {%- assign variant_map = variant_map | append: v_item -%}
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- assign variant_map = variant_map | append: "}" -%}
+
         {%- if frames_count > 0 -%}
           <button class="bs-icon bs-360" aria-label="View 360" 
             data-360-button 
             data-handle="{{ card_product.handle }}" 
             data-id="{{ card_product.id }}"
-            data-frames='{{ frames_array | json }}'>
+            data-frames='{{ initial_frames | json }}'
+            data-variant-map='{{ variant_map }}'>
             <span>360&deg;</span>
           </button>
         {%- endif -%}
@@ -95,11 +187,16 @@
     </div>
 
     <div class="bs-content">
-      <div class="bs-swatches">
+      <div class="bs-swatches" data-variant-swatches>
         {%- for option in card_product.options_with_values -%}
-          {%- if option.name == 'Metal' or option.name == 'Color' or option.name == 'color' or option.name == 'metal' -%}
+          {%- assign opt_name = option.name | downcase -%}
+          {%- if opt_name contains 'color' or opt_name contains 'metal' -%}
             {%- for value in option.values limit: 5 -%}
-              <span class="bs-swatch" style="background-color: {{ value | downcase | replace: ' ', '' }};" title="{{ value }}"></span>
+              <span class="bs-swatch {% if forloop.first %}is-active{% endif %}" 
+                style="background-color: {{ value | downcase | replace: ' ', '' }};" 
+                title="{{ value }}"
+                data-color="{{ value }}"
+                data-product-id="{{ card_product.id }}"></span>
             {%- endfor -%}
           {%- endif -%}
         {%- endfor -%}
@@ -126,241 +223,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .bs-card-wrapper {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-
-  .bs-image-container {
-    position: relative;
-    width: 100%;
-    padding-bottom: 100%; /* REQUIRED for aspect ratio */
-    background: #f4f4f4;
-    overflow: hidden;
-  }
-
-  .bs-media-link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    z-index: 1;
-  }
-
-  .bs-main-img, .bs-placeholder {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .bs-placeholder svg {
-    width: 100%;
-    height: 100%;
-    fill: #ddd;
-  }
-
-  .bs-overlays {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 10;
-  }
-
-  .bs-badge {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: #000;
-    color: #fff;
-    padding: 6px 12px;
-    font-size: 10px;
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-  }
-
-  .bs-icon {
-    position: absolute;
-    width: 36px;
-    height: 36px;
-    background: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    pointer-events: auto;
-    cursor: pointer;
-    border: none;
-    transition: transform 0.2s ease;
-  }
-
-  .bs-icon:hover {
-    transform: scale(1.1);
-  }
-
-  .bs-wishlist {
-    top: 10px;
-    right: 10px;
-  }
-
-  .bs-360 {
-    bottom: 10px;
-    left: 10px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(4px);
-    font-size: 11px;
-    font-weight: 700;
-    color: #444;
-  }
-
-  .bs-360-viewer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #f4f4f4;
-    z-index: 15;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease;
-    pointer-events: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .bs-360-viewer.is-active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .bs-360-canvas {
-    width: 100%;
-    height: 100%;
-    cursor: grab;
-    touch-action: none;
-  }
-
-  .bs-360-canvas:active {
-    cursor: grabbing;
-  }
-
-  .bs-360-loading {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #999;
-  }
-
-  .bs-360-close {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    cursor: pointer;
-    z-index: 20;
-    color: #000;
-  }
-
-  .bs-360-drag-hint {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #999;
-    pointer-events: none;
-    opacity: 0.8;
-  }
-
-  .bs-content {
-    padding-top: 15px;
-  }
-
-  .bs-title-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 15px;
-  }
-
-  .bs-title {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.4;
-  }
-
-  .bs-link {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .bs-swatches {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-
-  .bs-swatch {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 1px solid rgba(0,0,0,0.15);
-    cursor: pointer;
-    position: relative;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-  }
-
-  .bs-price {
-    margin-top: 6px;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .bs-discount-badge {
-    color: #d73948;
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-  .price--on-sale .price-item--regular {
-    text-decoration: line-through;
-    color: #999;
-    margin-right: 5px;
-  }
-
-  .price-item--sale {
-    font-weight: 700;
-    color: #000;
-  }
-
-  /* Swatch Colors Fallback */
-  .bs-swatch[style*="silver"] { background-color: #C0C0C0 !important; }
-  .bs-swatch[style*="platinum"] { background-color: #E5E4E2 !important; }
-  .bs-swatch[style*="yellow gold"] { background-color: #FFD700 !important; }
-  .bs-swatch[style*="rose gold"] { background-color: #B76E79 !important; }
-</style>
