@@ -307,7 +307,7 @@
       "type": "best-sellers-slider",
       "settings": {
         "title": "OUR BEST SELLERS",
-        "collection": "ring",
+        "collection": "keyzar-ring",
         "products_to_show": 8,
         "button_label": "EXPLORE MORE",
         "bg_color": "#fdfaf7",
