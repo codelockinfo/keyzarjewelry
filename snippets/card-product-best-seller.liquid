@@ -57,7 +57,6 @@
         {%- endfor -%}
 
         {%- if frames_count == 0 and card_product.media.size > 5 -%}
-          {% comment %} Fallback: If no 360-tagged images, take all images except the first few (main views) {% endcomment %}
           {%- for media in card_product.media offset: 1 -%}
             {%- assign img_url = media | image_url: width: 800 -%}
             {%- if frames == "" -%}
@@ -72,17 +71,16 @@
         {%- assign frames_array = frames | split: "," -%}
 
         {%- assign variant_map = "{" -%}
-        {%- assign color_options = "" -%}
-        {%- assign default_color = "" -%}
+        {%- assign has_any_360 = false -%}
+        {%- if frames_count > 0 -%}{%- assign has_any_360 = true -%}{%- endif -%}
+
         {%- assign initial_frames = frames_array -%}
+        {%- assign first_opt_found = false -%}
         
-        {%- comment -%}
-          Try to map colors to their featured images and 360 images
-        {%- endcomment -%}
         {%- for option in card_product.options_with_values -%}
           {%- assign opt_name = option.name | downcase -%}
           {%- if opt_name contains 'color' or opt_name contains 'metal' -%}
-            {%- assign color_options = option.values -%}
+            {%- assign first_opt_found = true -%}
             {%- assign default_color = option.values[0] -%}
             {%- for value in option.values -%}
               {%- assign color_val = value | downcase -%}
@@ -96,8 +94,8 @@
                      {%- assign v_image = variant.featured_media | image_url: width: 533 -%}
                    {%- endif -%}
                    
-                   {%- comment -%} Check the 360_images metafield first {%- endcomment -%}
                    {%- if variant.metafields.custom['360_images'].value != blank -%}
+                     {%- assign has_any_360 = true -%}
                      {%- for image in variant.metafields.custom['360_images'].value -%}
                         {%- assign f_url = image | image_url: width: 800 -%}
                         {%- if v_frames == "" -%}
@@ -112,7 +110,6 @@
               {%- endfor -%}
 
               {%- if v_frames == "" -%}
-                {%- comment -%} Fallback to alt-text based filtering if no metafield found {%- endcomment -%}
                 {%- for media in card_product.media -%}
                   {%- assign m_alt = media.alt | downcase -%}
                   {%- if m_alt contains '360' or m_alt contains 'spin' -%}
@@ -127,6 +124,7 @@
                     {%- endif -%}
 
                     {%- if match -%}
+                      {%- assign has_any_360 = true -%}
                       {%- assign f_url = media | image_url: width: 800 -%}
                       {%- if v_frames == "" -%}
                         {%- assign v_frames = f_url -%}
@@ -139,7 +137,6 @@
               {%- endif -%}
 
               {%- if v_frames == "" -%}
-                {%- comment -%} Final fallback: Use generic product frames if NO variant-specific frames exist {%- endcomment -%}
                 {%- assign v_frames = frames -%}
               {%- endif -%}
 
@@ -158,11 +155,15 @@
               {%- if forloop.first == false -%}{%- assign variant_map = variant_map | append: "," -%}{%- endif -%}
               {%- assign variant_map = variant_map | append: v_item -%}
             {%- endfor -%}
+            {%- break -%} {% comment %} Only process the first color option {% endcomment %}
           {%- endif -%}
         {%- endfor -%}
         {%- assign variant_map = variant_map | append: "}" -%}
+        {%- if variant_map == "{}" and first_opt_found == false -%}
+            {%- assign variant_map = "{}" -%}
+        {%- endif -%}
 
-        {%- if frames_count > 0 -%}
+        {%- if has_any_360 -%}
           <button class="bs-icon bs-360" aria-label="View 360" 
             data-360-button 
             data-handle="{{ card_product.handle }}" 

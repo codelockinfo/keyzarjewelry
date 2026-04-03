@@ -157,6 +157,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: opacity 0.3s ease;
   }
 
   .bs-placeholder svg {
@@ -640,26 +641,29 @@
       swatch.addEventListener('click', function() {
         const card = this.closest('.best-seller-card');
         const color = this.dataset.color;
-        const btn360 = card.querySelector('[data-360-button]');
-        if (!btn360) return;
+        
+        // Update Active Swatch UI immediately
+        card.querySelectorAll('.bs-swatch').forEach(s => s.classList.remove('is-active'));
+        this.classList.add('is-active');
 
-        const variantMap = JSON.parse(btn360.dataset.variantMap || '{}');
+        const btn360 = card.querySelector('[data-360-button]');
+        const variantMap = btn360 ? JSON.parse(btn360.dataset.variantMap || '{}') : {};
         const variantData = variantMap[color];
 
         if (variantData) {
-          // Update Active Swatch
-          card.querySelectorAll('.bs-swatch').forEach(s => s.classList.remove('is-active'));
-          this.classList.add('is-active');
-
-          // Update Main Image
+          // Update Main Image with a smooth fade
           const mainImg = card.querySelector('.bs-main-img');
           if (mainImg && variantData.image) {
-            mainImg.src = variantData.image;
-            mainImg.srcset = variantData.image; // Simplified for demo
+            mainImg.style.opacity = '0.5';
+            setTimeout(() => {
+              mainImg.src = variantData.image;
+              mainImg.srcset = variantData.image;
+              mainImg.style.opacity = '1';
+            }, 150);
           }
 
-          // Update 360 Frames
-          if (variantData.frames) {
+          // Update 360 Frames if button exists
+          if (btn360 && variantData.frames && variantData.frames.length > 0) {
             btn360.dataset.frames = JSON.stringify(variantData.frames);
             const viewer = card.querySelector('[data-360-viewer]');
             if (viewer && viewer.instance) {
