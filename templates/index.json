@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "image_banner": {
@@ -289,8 +298,7 @@
       "name": "Trustpilot Slider",
       "settings": {
         "subtitle": "See what our clients have to say",
-        "bg_color": "#F9F1EB",
-        "disable_swiper_assets": false,
+        "bg_color": "#f9f1eb",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -299,7 +307,7 @@
       "type": "best-sellers-slider",
       "settings": {
         "title": "OUR BEST SELLERS",
-        "collection": "all",
+        "collection": "ring",
         "products_to_show": 8,
         "button_label": "EXPLORE MORE",
         "bg_color": "#fdfaf7",
