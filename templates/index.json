@@ -332,7 +332,7 @@
           "settings": {
             "collection": "",
             "image": "shopify://shop_images/wedding_bands_cc3d5a93-c2c3-42ff-8743-469c88dca4f2.webp",
-            "title": "",
+            "title": "Wedding Bands",
             "card_bg": "#f5efe7"
           }
         },
@@ -341,7 +341,7 @@
           "settings": {
             "collection": "",
             "image": "shopify://shop_images/fine-jewelry_e6615fad-a55e-477b-a5f6-0cd42ebd5422.webp",
-            "title": "",
+            "title": "Fine Jewelry",
             "card_bg": "#f5efe7"
           }
         },
@@ -350,7 +350,7 @@
           "settings": {
             "collection": "",
             "image": "shopify://shop_images/eternity-ring_d1ccbaf0-929a-454b-baeb-7a84459416fb.webp",
-            "title": "Engagement Rings",
+            "title": "Eternity Rings",
             "card_bg": "rgba(0,0,0,0)"
           }
         }
