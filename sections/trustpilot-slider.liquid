@@ -1,0 +1,259 @@
+{%- style -%}
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+  .trustpilot-slider-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.bg_color }};
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .trustpilot-slider-{{ section.id }} .trustpilot-header {
+    text-align: center;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .trustpilot-slider-{{ section.id }} .trustpilot-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    font-family: inherit;
+  }
+
+  .trustpilot-slider-{{ section.id }} .trustpilot-logo svg {
+    width: 32px;
+    height: 32px;
+    fill: #00b67a;
+  }
+
+  .trustpilot-slider-{{ section.id }} .trustpilot-subtitle {
+    font-size: 16px;
+    color: #1a1a1a;
+    opacity: 0.8;
+  }
+
+  .trustpilot-slider-{{ section.id }} .swiper {
+    padding: 20px 0 60px;
+  }
+
+  .trustpilot-slider-{{ section.id }} .review-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 35px;
+    height: auto;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .trustpilot-slider-{{ section.id }} .review-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .trustpilot-slider-{{ section.id }} .reviewer-name {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: #000000;
+  }
+
+  .trustpilot-slider-{{ section.id }} .star-rating {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+  }
+
+  .trustpilot-slider-{{ section.id }} .star-rating svg {
+    width: 18px;
+    height: 18px;
+    fill: #e7c6af;
+  }
+
+  .trustpilot-slider-{{ section.id }} .review-divider {
+    border-top: 1px solid #e0e0e0;
+    margin: 0 0 20px;
+    width: 100%;
+    display: block;
+  }
+
+  .trustpilot-slider-{{ section.id }} .review-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #000000;
+    margin: 0;
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .trustpilot-slider-{{ section.id }} .swiper-pagination-bullet {
+    background: #e5c4ac;
+    opacity: 1;
+    width: 10px;
+    height: 10px;
+    margin: 0 6px !important;
+    border: 1px solid transparent;
+  }
+
+  .trustpilot-slider-{{ section.id }} .swiper-pagination-bullet-active {
+    background: transparent;
+    border: 1px solid #e5c4ac;
+  }
+
+  @media screen and (max-width: 767px) {
+    .trustpilot-slider-{{ section.id }} .trustpilot-header {
+      margin-bottom: 30px;
+    }
+    .trustpilot-slider-{{ section.id }} .review-card {
+      padding: 25px;
+      min-height: 240px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="trustpilot-slider-{{ section.id }}">
+  <div class="page-width" style="max-width: 1700px;">
+    <div class="trustpilot-header">
+      <div class="trustpilot-logo">
+        <svg viewBox="0 0 24 24"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
+        <span>Trustpilot</span>
+      </div>
+      <div class="trustpilot-subtitle">{{ section.settings.subtitle }}</div>
+    </div>
+
+    <div class="swiper swiper-trustpilot-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <div class="review-card">
+              <div class="reviewer-name">{{ block.settings.reviewer_name }}</div>
+              <div class="star-rating">
+                {%- for i in (1..5) -%}
+                  <svg viewBox="0 0 24 24"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
+                {%- endfor -%}
+              </div>
+              <div class="review-divider"></div>
+              <p class="review-text">"{{ block.settings.review_text }}"</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="swiper-pagination swiper-pagination-{{ section.id }}"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    new Swiper('.swiper-trustpilot-{{ section.id }}', {
+      slidesPerView: 1.2,
+      spaceBetween: 20,
+      centeredSlides: true,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination-{{ section.id }}',
+        clickable: true,
+      },
+      breakpoints: {
+        991: {
+          slidesPerView: 3,
+          centeredSlides: false,
+          spaceBetween: 30
+        },
+        768: {
+          slidesPerView: 2,
+          centeredSlides: false,
+          spaceBetween: 20
+        },
+        320: {
+          slidesPerView: 1.2,
+          centeredSlides: false,
+          spaceBetween: 10
+        }
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Trustpilot Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "See what our clients have to say"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#F9F1EB"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer Name",
+          "default": "Gene F."
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "Keyzar made it very easy for me to customize and select the perfect ring for my fiance. The way my schedule is I knew it'd be tough to actually go out and search for one. Their online shopping tool was great. If you're hesitant to shop for a ring online, don't be! I couldn't be happier!"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trustpilot Slider",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,92 @@
+<div class="cs-slide" data-index="{{ current_index }}">
+  <div class="cs-card">
+    <div class="cs-card-bg">
+      {%- if story.cover_image.value != blank -%}
+        <img src="{{ story.cover_image.value | image_url: width: 800 }}" loading="lazy" alt="{{ story.title.value | escape }}">
+      {%- else -%}
+        {{ 'auto' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+      <div class="cs-overlay"></div>
+    </div>
+    <div class="cs-card-info">
+      {%- if story.title.value != blank -%}
+        <h3 class="cs-title">{{ story.title.value }}</h3>
+      {%- endif -%}
+
+      {%- if story.subtitle.value != blank -%}
+        <div class="cs-preview">{{ story.subtitle.value }}</div>
+      {%- endif -%}
+      
+      <div class="cs-card-footer">
+        <button class="cs-btn-primary cs-read-more" aria-label="Read story of {{ story.title.value | escape }}">Read More</button>
+        <span class="cs-footer-arrow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <template class="story-popup-data">
+    <div class="cs-popup-nav-header">
+      <div class="cs-popup-meta-info">
+        <span class="cs-popup-static-meet">MEET THE COUPLE</span>
+        {%- if story.title.value != blank -%}
+          <h2 class="cs-popup-main-title">{{ story.title.value }}</h2>
+        {%- endif -%}
+      </div>
+    </div>
+    
+    {%- if story.cover_image.value != blank -%}
+      <div class="cs-popup-image-full">
+        <img src="{{ story.cover_image.value | image_url: width: 1200 }}" loading="lazy" class="cs-img-popup" alt="{{ story.title.value | escape }}">
+      </div>
+    {%- endif -%}
+    
+    <div class="cs-popup-content-section">
+      <span class="cs-popup-static-heading">LOVE STORY</span>
+      {%- if story.subtitle.value != blank -%}
+        <div class="cs-popup-story-prose">{{ story.subtitle.value }}</div>
+      {%- endif -%}
+      {%- if story.story_text.value != blank -%}
+        <div class="cs-popup-story-prose">{{ story.story_text.value }}</div>
+      {%- endif -%}
+    </div>
+    
+    {%- if story.review_image.value != blank or story.review_text.value != blank -%}
+      <div class="cs-popup-review-section-new">
+        <div class="cs-popup-review-inner">
+          {%- if story.review_image.value != blank -%}
+            <div class="cs-popup-review-image">
+              <img src="{{ story.review_image.value | image_url: width: 1000 }}" loading="lazy" class="cs-img-popup" alt="Review image">
+            </div>
+          {%- endif -%}
+          
+          <div class="cs-popup-review-badge-container">
+            <span class="cs-popup-review-badge">KEYZAR EXPERIENCE REVIEW</span>
+          </div>
+
+          {%- if story.review_text.value != blank -%}
+            <div class="cs-popup-story-badge-prose">"{{ story.review_text.value }}"</div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+    
+    {%- assign prod = story.product.value -%}
+    {%- if prod != blank -%}
+      <div class="cs-popup-product-section">
+        <span class="cs-popup-static-heading">THE CHOSEN RING</span>
+        <a href="{{ prod.url }}" class="cs-popup-product-card">
+          <div class="cs-popup-prod-img">
+            <img src="{{ prod.featured_image | image_url: width: 400 }}" loading="lazy" alt="{{ prod.title | escape }}">
+          </div>
+          <div class="cs-popup-prod-details">
+            <span class="cs-popup-prod-title">{{ prod.title }}</span>
+            <span class="cs-popup-prod-price">{{ prod.price | money }}</span>
+            <span class="cs-popup-prod-link">SHOP THE RING &rarr;</span>
+          </div>
+        </a>
+      </div>
+    {%- endif -%}
+  </template>
+</div>

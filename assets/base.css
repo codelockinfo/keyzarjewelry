@@ -657,8 +657,6 @@ h3 .icon-arrow,
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
-  height: 20px;
 }
 
 .svg-wrapper>svg {

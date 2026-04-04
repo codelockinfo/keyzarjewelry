@@ -1,0 +1,781 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .best-sellers-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  .best-sellers-{{ section.id }} .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+
+  .best-sellers-{{ section.id }} .section-title {
+    margin: 0;
+    font-family: 'Playfair Display', serif; /* Assuming this is available or fallback to serif */
+    font-size: 32px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .best-sellers-{{ section.id }} .slider-nav {
+    display: flex;
+    gap: 15px;
+  }
+
+  .best-sellers-{{ section.id }} .slider-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid #e0e0e0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .best-sellers-{{ section.id }} .slider-btn:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+  
+  .best-sellers-{{ section.id }} .slider-btn.swiper-button-disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .best-sellers-{{ section.id }} .slider-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .best-sellers-{{ section.id }} .swiper {
+    padding-bottom: 40px;
+  }
+
+  .best-sellers-{{ section.id }} .explore-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  /* Custom Card Styles for Best Seller */
+  .best-seller-card {
+    position: relative;
+  }
+
+  .best-seller-card .card-icons {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .best-seller-card .icon-wishlist {
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: auto;
+    background: #fff;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  .best-seller-card .icon-360 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    pointer-events: auto;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+
+  .best-seller-card .badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #000;
+    color: #fff;
+    padding: 4px 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+
+  .bs-card-wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .bs-image-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    background: #f4f4f4;
+    overflow: hidden;
+  }
+
+  .bs-media-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 1;
+  }
+
+  .bs-main-img, .bs-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+  }
+
+  .bs-placeholder svg {
+    width: 100%;
+    height: 100%;
+    fill: #ddd;
+  }
+
+  .bs-overlays {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .bs-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #000;
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .bs-icon {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    pointer-events: auto;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s ease;
+  }
+
+  .bs-icon:hover {
+    transform: scale(1.1);
+  }
+
+  .bs-wishlist {
+    top: 10px;
+    right: 10px;
+  }
+
+  /* v2 - Cache Buster: 101 */
+  .best-sellers-{{ section.id }} .bs-360 {
+    bottom: 15px !important;
+    left: 15px !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 8px 16px !important;
+    background: #ffffff !important;
+    border-radius: 40px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #111111 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
+    border: 1.5px solid rgba(0,0,0,0.08) !important;
+    z-index: 5 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .best-sellers-{{ section.id }} .bs-360 svg {
+    width: 16px !important;
+    height: 16px !important;
+    color: #111111 !important;
+  }
+
+  .bs-360-viewer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f4f4f4;
+    z-index: 15;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bs-360-viewer.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .bs-360-canvas {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .bs-360-canvas:active {
+    cursor: grabbing;
+  }
+
+  .bs-360-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #999;
+  }
+
+  .best-sellers-{{ section.id }} .bs-360-close {
+    position: absolute !important;
+    bottom: 12px !important;
+    left: 12px !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(0,0,0,0.15) !important;
+    border-radius: 50% !important;
+    width: 30px !important;
+    height: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+    cursor: pointer !important;
+    z-index: 50 !important;
+    color: #111111 !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .best-sellers-{{ section.id }} .bs-360-close svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .best-sellers-{{ section.id }} .bs-360-close:hover {
+    transform: scale(1.1) !important;
+    background: #f8f8f8 !important;
+  }
+
+  .best-sellers-{{ section.id }} .bs-360-drag-hint {
+    position: absolute !important;
+    bottom: 7% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    pointer-events: none !important;
+    z-index: 60 !important;
+  }
+
+  .bs-content {
+    padding: 15px;
+  }
+
+  .bs-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .bs-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .bs-swatches {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .bs-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.15);
+    cursor: pointer;
+    position: relative;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  .bs-price {
+    margin-top: 6px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .bs-discount-badge {
+    color: #d73948;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .price--on-sale .price-item--regular {
+    text-decoration: line-through;
+    color: #999;
+    margin-right: 5px;
+  }
+
+  .price-item--sale {
+    font-weight: 700;
+    color: #000;
+  }
+
+  .bs-swatch.is-active {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+  }
+
+  /* Swatch Colors Fallback */
+  .bs-swatch[style*="silver"] { background-color: #C0C0C0 !important; }
+  .bs-swatch[style*="platinum"] { background-color: #E5E4E2 !important; }
+  .bs-swatch[style*="yellow gold"] { background-color: #FFD700 !important; }
+  .bs-swatch[style*="rose gold"] { background-color: #B76E79 !important; }
+{%- endstyle -%}
+
+<div class="best-sellers-{{ section.id }} section-{{ section.id }}-padding isolate">
+  <div class="page-width">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+      <div class="slider-nav">
+        <button class="slider-btn prev-{{ section.id }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="slider-btn next-{{ section.id }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="swiper swiper-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+          <div class="swiper-slide">
+            {%- render 'card-product-best-seller',
+              card_product: product,
+              section_id: section.id
+            -%}
+            {% comment %} Adding custom icons overlay if needed, or I might need to customize card-product {% endcomment %}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="explore-more-container">
+        <a href="{{ section.settings.collection.url }}" class="button button--primary">{{ section.settings.button_label }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    new Swiper('.swiper-{{ section.id }}', {
+      slidesPerView: 1.5,
+      spaceBetween: 20,
+      navigation: {
+        nextEl: '.next-{{ section.id }}',
+        prevEl: '.prev-{{ section.id }}',
+      },
+      breakpoints: {
+        750: {
+          slidesPerView: 3,
+          spaceBetween: 30
+        },
+        990: {
+          slidesPerView: 4,
+          spaceBetween: 30
+        }
+      }
+    });
+
+    // 360 Viewer Logic for Slider Cards - Silky Smooth Edition
+    class Jewelry360Viewer {
+      constructor(container) {
+        this.container = container;
+        this.canvas = container.querySelector('.bs-360-canvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.loading = container.querySelector('.bs-360-loading');
+        this.dragHint = container.querySelector('.bs-360-drag-hint');
+        this.triggerButton = container.closest('.best-seller-card').querySelector('[data-360-button]');
+        this.handle = this.triggerButton.dataset.handle;
+        this.framesData = this.triggerButton.dataset.frames ? JSON.parse(this.triggerButton.dataset.frames) : [];
+        this.frames = [];
+        this.totalFrames = this.framesData.length || 36;
+        
+        // Physics and State
+        this.currentFrame = 0;
+        this.targetFrame = 0;
+        this.lastDrawnFrame = -1;
+        this.isDragging = false;
+        this.isHovering = false;
+        this.lastX = 0;
+        this.velocity = 0;
+        this.friction = 0.94;
+        this.sensitivity = 0.5;
+        this.lerpFactor = 0.12;
+        
+        this.init();
+      }
+
+      init() {
+        this.resize();
+        this.loadBaseImage();
+        this.loadFrames();
+        this.bindEvents();
+        this.render();
+      }
+
+      updateFrames(newFrames) {
+        if (!newFrames || newFrames.length === 0) return;
+        this.framesData = newFrames;
+        this.totalFrames = newFrames.length;
+        this.frames = [];
+        this.lastDrawnFrame = -1;
+        this.currentFrame = 0;
+        this.targetFrame = 0;
+        
+        if (this.loading) {
+          this.loading.style.display = 'block';
+          this.loading.textContent = 'Loading...';
+        }
+        
+        this.loadFrames();
+      }
+
+      resize() {
+        const size = this.container.offsetWidth;
+        this.canvas.width = size * window.devicePixelRatio;
+        this.canvas.height = size * window.devicePixelRatio;
+        this.ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      }
+
+      loadBaseImage() {
+        const mainImg = this.container.closest('.best-seller-card').querySelector('.bs-main-img');
+        if (mainImg) {
+          const img = new Image();
+          img.src = mainImg.src;
+          img.onload = () => {
+             if (this.frames.length === 0 || !this.frames[0].complete) {
+               this.draw(true);
+             }
+          };
+        }
+      }
+
+      loadFrames() {
+        let loaded = 0;
+        let failed = 0;
+        const total = this.totalFrames;
+
+        if (this.framesData && this.framesData.length > 0) {
+          this.framesData.forEach((url, i) => {
+            const img = new Image();
+            img.src = url;
+            img.onload = () => {
+              loaded++;
+              this.checkProgress(loaded, failed, total);
+            };
+            img.onerror = () => {
+              failed++;
+              this.checkProgress(loaded, failed, total);
+            };
+            this.frames[i] = img;
+          });
+        }
+      }
+
+      checkProgress(loaded, failed, total) {
+        if (loaded + failed === total) {
+          if (loaded > 0) {
+            if (this.loading) this.loading.style.display = 'none';
+            this.draw(true);
+          } else if (this.loading) {
+            this.loading.textContent = '360 View Not Available';
+            this.loading.style.color = '#d73948';
+          }
+        }
+      }
+
+      bindEvents() {
+        const startDrag = (e) => {
+          this.isDragging = true;
+          this.lastX = e.pageX || e.touches?.[0]?.pageX;
+          this.canvas.style.cursor = 'grabbing';
+          if (this.dragHint) {
+            this.dragHint.style.transition = 'opacity 0.3s ease';
+            this.dragHint.style.opacity = '0';
+          }
+          this.velocity = 0;
+        };
+
+        const stopDrag = () => {
+          this.isDragging = false;
+          this.canvas.style.cursor = 'grab';
+          // Optionally show hint again if they haven't rotated much, 
+          // but usually it's better to keep it hidden after first interaction.
+        };
+
+        const moveDrag = (e) => {
+          const x = e.pageX || e.touches?.[0]?.pageX;
+          if (this.isDragging) {
+             const deltaX = x - this.lastX;
+             this.velocity = deltaX * this.sensitivity;
+             this.targetFrame -= this.velocity;
+             this.lastX = x;
+          } else if (this.isHovering) {
+             const rect = this.canvas.getBoundingClientRect();
+             const relativeX = x - rect.left;
+             const percentage = Math.max(0, Math.min(1, relativeX / rect.width));
+             this.targetFrame = percentage * (this.totalFrames - 1);
+          }
+        };
+
+        this.canvas.addEventListener('mousedown', startDrag);
+        this.canvas.addEventListener('touchstart', startDrag, { passive: false });
+        this.canvas.addEventListener('mouseenter', () => { this.isHovering = true; });
+        this.canvas.addEventListener('mouseleave', () => { this.isHovering = false; });
+        window.addEventListener('mousemove', moveDrag);
+        window.addEventListener('touchmove', moveDrag, { passive: false });
+        window.addEventListener('mouseup', stopDrag);
+        window.addEventListener('touchend', stopDrag);
+        this.canvas.style.cursor = 'grab';
+      }
+
+      render() {
+        if (!this.container.classList.contains('is-active')) {
+          this.isAnimating = false;
+          return;
+        }
+        this.isAnimating = true;
+
+        if (!this.isDragging && !this.isHovering) {
+          this.velocity *= this.friction;
+          this.targetFrame -= this.velocity;
+          if (Math.abs(this.velocity) < 0.005) this.velocity = 0;
+        }
+
+        let normTarget = this.targetFrame % this.totalFrames;
+        if (normTarget < 0) normTarget += this.totalFrames;
+        
+        let diff = normTarget - this.currentFrame;
+        if (Math.abs(diff) > this.totalFrames / 2) {
+          diff = diff > 0 ? diff - this.totalFrames : diff + this.totalFrames;
+        }
+        
+        this.currentFrame += diff * this.lerpFactor;
+        if (this.currentFrame < 0) this.currentFrame += this.totalFrames;
+        if (this.currentFrame >= this.totalFrames) this.currentFrame -= this.totalFrames;
+
+        this.draw();
+        this.animationId = requestAnimationFrame(() => this.render());
+      }
+
+      draw(force = false) {
+        const frameIndex = Math.floor(this.currentFrame);
+        if (!force && frameIndex === this.lastDrawnFrame) return;
+        
+        const img = this.frames[frameIndex];
+        if (!img || !img.complete) return;
+        
+        const w = this.canvas.width / window.devicePixelRatio;
+        const h = this.canvas.height / window.devicePixelRatio;
+        this.ctx.clearRect(0, 0, w, h);
+        this.ctx.imageSmoothingEnabled = true;
+        this.ctx.imageSmoothingQuality = 'high';
+        this.ctx.drawImage(img, 0, 0, w, h);
+        this.lastDrawnFrame = frameIndex;
+      }
+    }
+
+    document.querySelectorAll('[data-360-button]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const card = btn.closest('.best-seller-card');
+        const viewer = card.querySelector('[data-360-viewer]');
+        viewer.classList.add('is-active');
+        if (!viewer.instance) {
+          viewer.instance = new Jewelry360Viewer(viewer);
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-360-close]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        btn.closest('[data-360-viewer]').classList.remove('is-active');
+      });
+    });
+
+    // Swatch Interaction
+    document.querySelectorAll('.bs-swatch').forEach(swatch => {
+      swatch.addEventListener('click', function() {
+        const card = this.closest('.best-seller-card');
+        const color = this.dataset.color;
+        
+        // Update Active Swatch UI immediately
+        card.querySelectorAll('.bs-swatch').forEach(s => s.classList.remove('is-active'));
+        this.classList.add('is-active');
+
+        const btn360 = card.querySelector('[data-360-button]');
+        const variantMap = btn360 ? JSON.parse(btn360.dataset.variantMap || '{}') : {};
+        const variantData = variantMap[color];
+
+        if (variantData) {
+          // Update Main Image with a smooth fade
+          const mainImg = card.querySelector('.bs-main-img');
+          if (mainImg && variantData.image) {
+            mainImg.style.opacity = '0.5';
+            setTimeout(() => {
+              mainImg.src = variantData.image;
+              mainImg.srcset = variantData.image;
+              mainImg.style.opacity = '1';
+            }, 150);
+          }
+
+          // Update 360 Frames if button exists
+          if (btn360 && variantData.frames && variantData.frames.length > 0) {
+            btn360.dataset.frames = JSON.stringify(variantData.frames);
+            const viewer = card.querySelector('[data-360-viewer]');
+            if (viewer && viewer.instance) {
+              viewer.instance.updateFrames(variantData.frames);
+            }
+          }
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Best Sellers Slider",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "OUR BEST SELLERS"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "Products to Show"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "EXPLORE MORE"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#fdfaf7"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Best Sellers Slider"
+    }
+  ]
+}
+{% endschema %}

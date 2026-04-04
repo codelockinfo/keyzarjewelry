@@ -1,0 +1,173 @@
+{% schema %}
+{
+  "name": "Logo Slider",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo Image"
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code",
+          "label": "SVG Code (Optional)",
+          "info": "Paste Raw SVG code here if you don't want to use an image picker."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "As Seen On Slider"
+    }
+  ]
+}
+{% endschema %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<div class="logo-section">
+  <div class="page-width">
+    
+    <!-- Desktop View -->
+    <div class="logo-desktop">
+      {% for block in section.blocks %}
+        {% if block.settings.logo != blank or block.settings.svg_code != blank %}
+          <div class="logo-item" {{ block.shopify_attributes }}>
+            {% if block.settings.svg_code != blank %}
+              <div class="svg-wrapper">
+                {{ block.settings.svg_code }}
+              </div>
+            {% else %}
+              <img 
+                src="{{ block.settings.logo | image_url: width: 300 }}" 
+                alt="{{ block.settings.logo.alt | default: 'Logo' }}"
+                width="120"
+                height="{{ 120 | divided_by: block.settings.logo.aspect_ratio | round }}"
+                loading="lazy"
+              >
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Mobile Slider -->
+    <div class="logo-mobile swiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {% if block.settings.logo != blank or block.settings.svg_code != blank %}
+            <div class="swiper-slide logo-item" {{ block.shopify_attributes }}>
+              {% if block.settings.svg_code != blank %}
+                <div class="svg-wrapper">
+                  {{ block.settings.svg_code }}
+                </div>
+              {% else %}
+                <img 
+                  src="{{ block.settings.logo | image_url: width: 300 }}" 
+                  alt="{{ block.settings.logo.alt | default: 'Logo' }}"
+                  width="120"
+                  height="{{ 120 | divided_by: block.settings.logo.aspect_ratio | round }}"
+                  loading="lazy"
+                >
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    new Swiper(".logo-mobile", {
+      slidesPerView: 2.5,
+      spaceBetween: 30,
+      loop: true,
+      allowTouchMove: false, 
+      speed: 5000,
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,
+      },
+      breakpoints: {
+        480: {
+          slidesPerView: 3.5
+        }
+      }
+    });
+  });
+</script>
+
+<style>
+.logo-section {
+  padding: 30px 0;
+}
+
+.logo-item {
+  text-align: center;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.logo-item:hover {
+  opacity: 1;
+}
+
+.logo-item img,
+.logo-item .svg-wrapper svg {
+  max-height: 60px;
+  max-width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: grayscale(100%);
+}
+
+.logo-item .svg-wrapper svg {
+  width: auto;
+}
+.svg-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Desktop */
+.logo-desktop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px 60px;
+}
+
+/* Mobile hidden */
+.logo-mobile {
+  display: none;
+}
+
+/* Mobile View Marquee Smoothness */
+.logo-mobile .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
+/* Mobile View Visibility */
+@media (max-width: 768px) {
+  .logo-desktop {
+    display: none;
+  }
+
+  .logo-mobile {
+    display: block;
+  }
+}
+</style>

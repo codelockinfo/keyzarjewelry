@@ -1,0 +1,236 @@
+{% comment %}
+  Renders a custom product card for the Best Sellers section
+{% endcomment %}
+
+<div class="bs-card-wrapper best-seller-card">
+  <div class="bs-card-inner">
+    <div class="bs-image-container">
+      <a href="{{ card_product.url | default: '#' }}" class="bs-media-link">
+        {%- if card_product.featured_media -%}
+          <img
+            srcset="{%- if card_product.featured_media.preview_image.width >= 165 -%}{{ card_product.featured_media.preview_image | image_url: width: 165 }} 165w,{%- endif -%}
+              {%- if card_product.featured_media.preview_image.width >= 360 -%}{{ card_product.featured_media.preview_image | image_url: width: 360 }} 360w,{%- endif -%}
+              {%- if card_product.featured_media.preview_image.width >= 533 -%}{{ card_product.featured_media.preview_image | image_url: width: 533 }} 533w,{%- endif -%}
+              {{ card_product.featured_media.preview_image | image_url }} {{ card_product.featured_media.preview_image.width }}w"
+            src="{{ card_product.featured_media.preview_image | image_url: width: 533 }}"
+            sizes="(min-width: 1200px) 400px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+            alt="{{ card_product.featured_media.alt | escape }}"
+            loading="lazy"
+            class="bs-main-img"
+            width="{{ card_product.featured_media.preview_image.width }}"
+            height="{{ card_product.featured_media.preview_image.height }}"
+          >
+        {%- else -%}
+          <div class="bs-placeholder">
+            {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endif -%}
+      </a>
+
+      <!-- Overlays -->
+      <div class="bs-overlays">
+        {%- if card_product.compare_at_price > card_product.price and card_product.available -%}
+          {%- assign discount = card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price | round -%}
+          <div class="bs-badge">{{ discount }}% OFF</div>
+        {%- elsif card_product.tags contains 'Customizable' or card_product.tags contains 'customizable' -%}
+          <div class="bs-badge">CUSTOMIZABLE</div>
+        {%- endif -%}
+
+        <button class="bs-icon bs-wishlist" aria-label="Add to wishlist">
+          <svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M10 18.35l-1.45-1.32C3.4 12.36 1 10.28 1 7.5 1 5.22 2.78 3.5 5 3.5c1.24 0 2.43.58 3.19 1.5C9.23 4.08 10.42 3.5 11.66 3.5 13.9 3.5 15.68 5.22 15.68 7.5c0 2.78-2.4 4.86-7.55 9.54L10 18.35z"/>
+          </svg>
+        </button>
+
+        {%- assign frames = "" -%}
+        {%- assign frames_count = 0 -%}
+        {%- for media in card_product.media -%}
+          {%- if media.alt contains '360' or media.alt contains 'spin' -%}
+            {%- assign img_url = media | image_url: width: 800 -%}
+            {%- if frames == "" -%}
+               {%- assign frames = img_url -%}
+            {%- else -%}
+               {%- assign frames = frames | append: "," | append: img_url -%}
+            {%- endif -%}
+            {%- assign frames_count = frames_count | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if frames_count == 0 and card_product.media.size > 5 -%}
+          {%- for media in card_product.media offset: 1 -%}
+            {%- assign img_url = media | image_url: width: 800 -%}
+            {%- if frames == "" -%}
+               {%- assign frames = img_url -%}
+            {%- else -%}
+               {%- assign frames = frames | append: "," | append: img_url -%}
+            {%- endif -%}
+            {%- assign frames_count = frames_count | plus: 1 -%}
+          {%- endfor -%}
+        {%- endif -%}
+        
+        {%- assign frames_array = frames | split: "," -%}
+
+        {%- assign variant_map = "{" -%}
+        {%- assign has_any_360 = false -%}
+        {%- if frames_count > 0 -%}{%- assign has_any_360 = true -%}{%- endif -%}
+
+        {%- assign initial_frames = frames_array -%}
+        {%- assign first_opt_found = false -%}
+        
+        {%- for option in card_product.options_with_values -%}
+          {%- assign opt_name = option.name | downcase -%}
+          {%- if opt_name contains 'color' or opt_name contains 'metal' -%}
+            {%- assign first_opt_found = true -%}
+            {%- assign default_color = option.values[0] -%}
+            {%- for value in option.values -%}
+              {%- assign color_val = value | downcase -%}
+              {%- assign product_img = card_product.featured_media | image_url: width: 533 -%}
+              {%- assign v_image = product_img -%}
+              {%- assign v_frames = "" -%}
+              
+              {%- for variant in card_product.variants -%}
+                {%- if variant.options contains value -%}
+                   {%- if variant.featured_media and v_image == product_img -%}
+                     {%- assign v_image = variant.featured_media | image_url: width: 533 -%}
+                   {%- endif -%}
+                   
+                   {%- if variant.metafields.custom['360_images'].value != blank -%}
+                     {%- assign has_any_360 = true -%}
+                     {%- for image in variant.metafields.custom['360_images'].value -%}
+                        {%- assign f_url = image | image_url: width: 800 -%}
+                        {%- if v_frames == "" -%}
+                          {%- assign v_frames = f_url -%}
+                        {%- else -%}
+                          {%- assign v_frames = v_frames | append: "," | append: f_url -%}
+                        {%- endif -%}
+                     {%- endfor -%}
+                     {%- break -%}
+                   {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {%- if v_frames == "" -%}
+                {%- for media in card_product.media -%}
+                  {%- assign m_alt = media.alt | downcase -%}
+                  {%- if m_alt contains '360' or m_alt contains 'spin' -%}
+                    {%- assign match = false -%}
+                    {%- if m_alt contains color_val -%}
+                      {%- assign match = true -%}
+                      {%- if color_val == 'gold' -%}
+                        {%- if m_alt contains 'rose gold' or m_alt contains 'white gold' -%}
+                          {%- assign match = false -%}
+                        {%- endif -%}
+                      {%- endif -%}
+                    {%- endif -%}
+
+                    {%- if match -%}
+                      {%- assign has_any_360 = true -%}
+                      {%- assign f_url = media | image_url: width: 800 -%}
+                      {%- if v_frames == "" -%}
+                        {%- assign v_frames = f_url -%}
+                      {%- else -%}
+                        {%- assign v_frames = v_frames | append: "," | append: f_url -%}
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+
+              {%- if v_frames == "" -%}
+                {%- assign v_frames = frames -%}
+              {%- endif -%}
+
+              {%- assign v_frames_arr = v_frames | split: "," -%}
+              {%- if value == default_color -%}
+                {%- assign initial_frames = v_frames_arr -%}
+              {%- endif -%}
+
+              {%- capture v_item -%}
+                {{ value | json }}: {
+                  "image": {{ v_image | json }},
+                  "frames": {{ v_frames_arr | json }}
+                }
+              {%- endcapture -%}
+              
+              {%- if forloop.first == false -%}{%- assign variant_map = variant_map | append: "," -%}{%- endif -%}
+              {%- assign variant_map = variant_map | append: v_item -%}
+            {%- endfor -%}
+            {%- break -%} {% comment %} Only process the first color option {% endcomment %}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- assign variant_map = variant_map | append: "}" -%}
+        {%- if variant_map == "{}" and first_opt_found == false -%}
+            {%- assign variant_map = "{}" -%}
+        {%- endif -%}
+
+        {%- if has_any_360 -%}
+          <button class="bs-icon bs-360" aria-label="View 360" 
+            data-360-button 
+            data-handle="{{ card_product.handle }}" 
+            data-id="{{ card_product.id }}"
+            data-frames='{{ initial_frames | json }}'
+            data-variant-map='{{ variant_map }}'>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L3 7v10l9 5 9-5V7l-9-5z"/>
+              <path d="M12 22V12"/>
+              <path d="M21 7l-9 5L3 7"/>
+            </svg>
+            <span>360&deg;</span>
+          </button>
+        {%- endif -%}
+
+        <div class="bs-360-viewer" data-360-viewer>
+          <canvas class="bs-360-canvas"></canvas>
+          <div class="bs-360-loading">Loading...</div>
+          <button class="bs-360-close" aria-label="Close 360" data-360-close style="position: absolute; bottom: 15px; left: 15px; background: #fff; border: 1px solid rgba(0,0,0,0.2); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2); cursor: pointer; z-index: 30; color: #000;">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+          <div class="bs-360-drag-hint" style="position: absolute; bottom: 7%; left: 50%; transform: translateX(-50%); color: #000; pointer-events: none; z-index: 20; opacity: 1;">
+            <svg viewBox="0 0 160 40" width="140" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 10C50 30 110 30 150 10" stroke="#999" stroke-width="0.8" stroke-dasharray="5 5" stroke-linecap="round"/>
+              <path d="M74 18L70 21L74 24" fill="#000"/>
+              <circle cx="80" cy="21" r="1.5" fill="#000"/>
+              <path d="M86 18L90 21L86 24" fill="#000"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bs-content">
+      <div class="bs-swatches" data-variant-swatches>
+        {%- for option in card_product.options_with_values -%}
+          {%- assign opt_name = option.name | downcase -%}
+          {%- if opt_name contains 'color' or opt_name contains 'metal' -%}
+            {%- for value in option.values limit: 5 -%}
+              <span class="bs-swatch {% if forloop.first %}is-active{% endif %}" 
+                style="background-color: {{ value | downcase | replace: ' ', '' }};" 
+                title="{{ value }}"
+                data-color="{{ value }}"
+                data-product-id="{{ card_product.id }}"></span>
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <h3 class="bs-title">
+        <a href="{{ card_product.url }}" class="bs-link">
+          {{ card_product.title | default: 'Sample Product' }}
+        </a>
+      </h3>
+
+      <div class="bs-price">
+        {%- if card_product -%}
+          {% render 'price', product: card_product, show_compare_at_price: true %}
+          
+          {%- if card_product.compare_at_price > card_product.price -%}
+             {%- assign discount_percent = card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price | round -%}
+             <span class="bs-discount-badge">{{ discount_percent }}% OFF</span>
+          {%- endif -%}
+        {%- else -%}
+          <span class="price">Rs. 25,000.00 INR</span>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>

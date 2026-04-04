@@ -222,13 +222,11 @@
   </div>
 </div>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
 <script>
 (function() {
   function init() {
     const sectionId = '{{ section.id }}';
+    const sliderStyle = '{{ section.settings.slider_style }}';
     const container = document.querySelector(`#V-Slider-${sectionId}`);
     if (!container || !window.Swiper) return;
 
@@ -300,13 +298,11 @@
 
         if (!imgWrap) continue;
 
-        // V-Shape: Center is vertex (0), sides rise UP (Negative translate)
-        // User requested exactly -54px for the 1st neighbor (progress 1)
-        const slope = isMobile ? 40 : 54;
+        // V-Shape or Straight Style logic
+        const slope = (sliderStyle === 'v_shape') ? (isMobile ? 40 : 54) : 0;
         const translateY = - (absProgress * slope);
         
         // Gap Hack: Pull smaller rings slightly closer to the center
-        // Balancing to ensure all 5 slides stay visible without overlapping.
         const xFactor = isMobile ? 0 : 35; 
         const xOffset = - (progress * xFactor);
         
@@ -366,6 +362,22 @@
       "id": "bg_color",
       "label": "Background Color",
       "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "slider_style",
+      "label": "Slider Style",
+      "options": [
+        {
+          "value": "v_shape",
+          "label": "V-Shape"
+        },
+        {
+          "value": "straight",
+          "label": "Straight"
+        }
+      ],
+      "default": "v_shape"
     },
     {
       "type": "range",
