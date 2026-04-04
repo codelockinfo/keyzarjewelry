@@ -22,7 +22,6 @@
 
   .collection-slider-{{ section.id }} .section-title {
     margin: 0;
-    font-family: 'Playfair Display', serif;
     font-size: 32px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -42,10 +41,6 @@
     transition: transform 0.3s ease;
     overflow: hidden;
     position: relative;
-  }
-
-  .cs-card:hover {
-    transform: translateY(-5px);
   }
 
   .cs-image-wrapper {
@@ -76,7 +71,6 @@
     font-size: 22px;
     font-weight: 500;
     margin: 0 0 6px 0;
-    font-family: sans-serif;
   }
 
   .cs-link {
@@ -87,11 +81,16 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    color: #000;
   }
   
   .cs-link svg {
     width: 12px;
     height: 12px;
+    transition: transform 0.3s ease;
+  }
+  .cs-card:hover .cs-link svg {
+    transform: translateX(10px);
   }
 
   .collection-slider-{{ section.id }} .swiper {
