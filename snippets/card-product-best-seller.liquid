@@ -37,9 +37,7 @@
         {%- endif -%}
 
         <button class="bs-icon bs-wishlist" aria-label="Add to wishlist">
-          <svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M10 18.35l-1.45-1.32C3.4 12.36 1 10.28 1 7.5 1 5.22 2.78 3.5 5 3.5c1.24 0 2.43.58 3.19 1.5C9.23 4.08 10.42 3.5 11.66 3.5 13.9 3.5 15.68 5.22 15.68 7.5c0 2.78-2.4 4.86-7.55 9.54L10 18.35z"/>
-          </svg>
+          <svg class="WishlistHeartIcon" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 24" width="28" height="28"><mask id="wishlist-heart-mask"><path d="M12,7.16613l3.01387-2.65371,4.7586,2.07432,1.0675,4.76126-8.83997,9.152L3.15997,11.348l1.06753-4.76126,4.75765-2.0739,3.01485,2.65329Z" fill="none" stroke="white" stroke-width="2"></path></mask><g mask="url(#wishlist-heart-mask)"><polygon class="heart-bg-fill" fill="#fff" points="2.61308 11.50098 3.7957 6.22949 9.07695 3.92773 12.00029 6.5 14.92216 3.92773 20.20536 6.22949 21.387 11.50098 12.00029 21.21973 2.61308 11.50098"></polygon><path class="heart-right" fill="none" d="M12,1.7h0c6.2,0,11.2,5,11.2,11.2h0c0,6.2-5,11.2-11.2,11.2h0C5.8,24,.8,19,.8,12.8h0C.8,6.7,5.8,1.7,12,1.7Z"></path><path class="heart-bottom" fill="none" d="M12,1.7h0c6.2,0,11.2,5,11.2,11.2h0c0,6.2-5,11.2-11.2,11.2h0C5.8,24,.8,19,.8,12.8h0C.8,6.7,5.8,1.7,12,1.7Z"></path><path class="heart-left" fill="none" d="M12,1.7h0c6.2,0,11.2,5,11.2,11.2h0c0,6.2-5,11.2-11.2,11.2h0C5.8,24,.8,19,.8,12.8h0C.8,6.7,5.8,1.7,12,1.7Z"></path><rect class="heart-bright-left" fill="rgba(255,255,255,0.2)" x="-4.9" y="-5" width="26.5" height="12.2" shape-rendering="crispEdges"></rect><rect class="heart-bright-right" fill="rgba(255,255,255,0.2)" x="10.1" y="-2.8" width="11.8" height="22.3" shape-rendering="crispEdges"></rect><polygon class="heart-outline" points="2.61308 11.50098 3.7957 6.22949 9.07695 3.92773 12.00029 6.5 14.92216 3.92773 20.20536 6.22949 21.387 11.50098 12.00029 21.21973 2.61308 11.50098"></polygon></g></svg>
         </button>
 
         {%- assign frames = "" -%}
@@ -170,11 +168,7 @@
             data-id="{{ card_product.id }}"
             data-frames='{{ initial_frames | json }}'
             data-variant-map='{{ variant_map }}'>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2L3 7v10l9 5 9-5V7l-9-5z"/>
-              <path d="M12 22V12"/>
-              <path d="M21 7l-9 5L3 7"/>
-            </svg>
+<svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M9.84676 16.1028L7.55356 13.6752C7.47796 13.5912 7.37716 13.5324 7.26796 13.5072C7.15876 13.482 7.04956 13.482 6.94036 13.5072C6.83116 13.5408 6.73876 13.5996 6.66316 13.6836C6.58756 13.7676 6.53716 13.8684 6.51196 13.986L6.24316 15.2796C3.64756 14.5572 1.99276 13.314 1.99276 12.0708C1.99276 11.0208 3.19396 9.96241 5.16796 9.21481C5.03356 8.81161 4.93276 8.39161 4.87396 7.96321C2.93356 8.67721 0.766357 10.0044 0.766357 12.0624C0.766357 13.9692 2.70676 15.6156 5.98276 16.5228L5.73916 17.682C5.71396 17.7912 5.72236 17.9172 5.75596 18.0264C5.78956 18.1356 5.85676 18.2364 5.94076 18.312C6.02476 18.3876 6.12556 18.438 6.24316 18.4548C6.35236 18.4716 6.46996 18.4548 6.57076 18.4212L9.64516 17.1444C9.73756 17.1024 9.82156 17.0436 9.88876 16.9596C9.95596 16.8756 9.99796 16.7832 10.0232 16.6824C10.04 16.5816 10.04 16.4724 10.0148 16.3716C9.98956 16.2708 9.93076 16.1784 9.86356 16.1028H9.84676ZM7.17556 16.7832L7.46116 15.4056L8.30956 16.3044L7.16716 16.7748L7.17556 16.7832Z" fill="currentColor"></path><path d="M18.0285 8.11433C17.9529 8.54273 17.8521 8.95433 17.7093 9.35753C19.4649 10.0883 20.5149 11.0795 20.5149 12.0623C20.5149 14.4227 15.5085 15.6239 13.0557 15.8339C12.9717 15.8339 12.8877 15.8591 12.8121 15.8927C12.7365 15.9263 12.6693 15.9851 12.6105 16.0439C12.5517 16.1111 12.5097 16.1867 12.4845 16.2623C12.4593 16.3463 12.4509 16.4303 12.4509 16.5143C12.4509 16.5983 12.4845 16.6823 12.5181 16.7579C12.5601 16.8335 12.6105 16.9007 12.6777 16.9595C12.7449 17.0099 12.8205 17.0519 12.8961 17.0771C12.9801 17.1023 13.0641 17.1107 13.1397 17.0939C16.3401 16.8167 21.7245 15.3803 21.7245 12.0455C21.7245 10.1219 19.8345 8.83673 18.0033 8.09753L18.0285 8.11433Z" fill="currentColor"></path><path d="M18.7429 4.50237H18.7345L11.7877 10.7436L11.7709 10.7772H11.7541L11.2585 11.214L3.75732 4.50237L7.53732 0.680374H14.9545L18.7345 4.50237H18.7261H18.7513H18.7429ZM14.4673 1.82277H12.7621L14.4421 4.38477L13.4929 6.64437L15.5593 5.79597L17.0629 4.45197L14.4589 1.82277H14.4673ZM5.41212 4.45197L6.89052 5.77917L11.2501 7.55997L11.9977 7.25757L13.1485 4.50237L11.3929 1.82277H8.00772L5.40372 4.45197H5.41212Z" fill="currentColor"></path></g></svg>
             <span>360&deg;</span>
           </button>
         {%- endif -%}
@@ -194,30 +188,40 @@
             </svg>
           </div>
         </div>
+
+        <!-- Hover CTA -->
+        <div class="bs-hover-cta">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 1L8.545 5.09L13 5.09L9.5 7.91L10.59 12L7 9.54L3.41 12L4.5 7.91L1 5.09L5.455 5.09L7 1Z" fill="currentColor"/>
+            </svg>
+            Customizable
+        </div>
       </div>
     </div>
 
     <div class="bs-content">
-      <div class="bs-swatches" data-variant-swatches>
-        {%- for option in card_product.options_with_values -%}
-          {%- assign opt_name = option.name | downcase -%}
-          {%- if opt_name contains 'color' or opt_name contains 'metal' -%}
-            {%- for value in option.values limit: 5 -%}
-              <span class="bs-swatch {% if forloop.first %}is-active{% endif %}" 
-                style="background-color: {{ value | downcase | replace: ' ', '' }};" 
-                title="{{ value }}"
-                data-color="{{ value }}"
-                data-product-id="{{ card_product.id }}"></span>
-            {%- endfor -%}
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
+      <div class="bs-title-row">
+        <h3 class="bs-title">
+          <a href="{{ card_product.url }}" class="bs-link">
+            {{ card_product.title | default: 'Sample Product' }}
+          </a>
+        </h3>
 
-      <h3 class="bs-title">
-        <a href="{{ card_product.url }}" class="bs-link">
-          {{ card_product.title | default: 'Sample Product' }}
-        </a>
-      </h3>
+        <div class="bs-swatches" data-variant-swatches>
+          {%- for option in card_product.options_with_values -%}
+            {%- assign opt_name = option.name | downcase -%}
+            {%- if opt_name contains 'color' or opt_name contains 'metal' -%}
+              {%- for value in option.values limit: 5 -%}
+                <span class="bs-swatch {% if forloop.first %}is-active{% endif %}" 
+                  style="background-color: {{ value | downcase | replace: ' ', '' }};" 
+                  title="{{ value }}"
+                  data-color="{{ value }}"
+                  data-product-id="{{ card_product.id }}"></span>
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
 
       <div class="bs-price">
         {%- if card_product -%}
@@ -225,7 +229,7 @@
           
           {%- if card_product.compare_at_price > card_product.price -%}
              {%- assign discount_percent = card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price | round -%}
-             <span class="bs-discount-badge">{{ discount_percent }}% OFF</span>
+             <span class="bs-discount-badge">{{ discount_percent }}% off</span>
           {%- endif -%}
         {%- else -%}
           <span class="price">Rs. 25,000.00 INR</span>
