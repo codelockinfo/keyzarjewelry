@@ -1,0 +1,467 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding: {{ section.settings.padding_mobile | default: '44px 0 24px 0' }};
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding: {{ section.settings.padding_desktop | default: '80px 0 24px 0' }};
+    }
+  }
+
+  .newsletter-info--{{ section.id }} {
+    font-family: inherit;
+  }
+
+  .newsletter-info__container {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+  }
+
+  .newsletter-info__newsletter {
+    text-align: center;
+  }
+
+  .newsletter-info__heading {
+    margin: 0 0 18px 0;
+    font-size: var(--font-size-26);
+    font-weight: 400;
+    text-transform: uppercase;
+    color: rgb(var(--color-foreground));
+  }
+
+  .newsletter-info__form-wrapper {
+    max-width: 618px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .newsletter-info__form {
+    display: flex;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #2b2b2b;
+    height: 47px;
+    width: 100%;
+  }
+
+  .newsletter-info__field {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .newsletter-info__input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 0 25px;
+    font-size: var(--font-size-16);
+    outline: none;
+    height: 100%;
+  }
+
+  .newsletter-info__input::placeholder {
+    color: white;
+    text-transform: uppercase;
+  }
+
+  .newsletter-info__submit {
+    background: #7a7a7a;
+    border: none;
+    color: #ffffff;
+    padding: 0 40px;
+    font-size: var(--font-size-16);
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    white-space: nowrap;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .newsletter-info__submit:hover {
+    background: #8e8e8e;
+  }
+
+  .newsletter-info__subtext {
+    margin-top: 15px;
+    font-size: var(--font-size-12);
+    color: rgba(var(--color-foreground), 0.6);
+    line-height: 1.6;
+  }
+
+  .newsletter-info__subtext a {
+    color: currentColor;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .newsletter-info__blocks {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .newsletter-info__block {
+    flex: 1;
+    text-align: center;
+    padding: 30px 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  @media screen and (min-width: 1025px) {
+    {%- if section.settings.show_dividers -%}
+      .newsletter-info__block:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 25%;
+        height: 50%;
+        width: 1px;
+        background: rgba(var(--color-foreground), 0.3);
+      }
+    {%- endif -%}
+    
+    .newsletter-info__newsletter {
+      order: 1;
+    }
+    .newsletter-info__blocks {
+      order: 2;
+    }
+  }
+
+  .newsletter-info__icon {
+    margin-bottom: 25px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(var(--color-foreground));
+  }
+
+  .newsletter-info__icon svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.2;
+  }
+
+  .newsletter-info__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .newsletter-info__block-title {
+    font-size: var(--font-size-24);
+    margin: 0 0 10px 0;
+    font-weight: 500;
+  }
+
+  .newsletter-info__block-subtitle {
+    font-size: var(--font-size-14);
+    color:white;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* Tablet Layout (768 - 1024) */
+  @media screen and (max-width: 1024px) {
+    .newsletter-info__newsletter {
+      order: 2;
+    }
+    .newsletter-info__blocks {
+      order: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .newsletter-info__block:not(:last-child)::after {
+      display: none;
+    }
+    .newsletter-info__block:nth-child(3) {
+      grid-column: span 2;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+
+  /* Mobile Layout */
+  @media screen and (max-width: 767px) {
+    .newsletter-info__container {
+      gap: 60px;
+    }
+    .newsletter-info__blocks {
+      grid-template-columns: 1fr;
+    }
+    .newsletter-info__block:nth-child(3) {
+      grid-column: span 1;
+    }
+    .newsletter-info__heading {
+      font-size: 1.8rem;
+    }
+    .newsletter-info__submit {
+       padding: 0 25px;
+    }
+    .newsletter-info__input , .newsletter-info__submit {
+        padding: 0 15px;
+        font-size:var(--font-size-14);
+    }
+  }
+{%- endstyle -%}
+
+<div class="newsletter-info newsletter-info--{{ section.id }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="newsletter-info__container page-width">
+    
+    <div class="newsletter-info__blocks">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'info' and block.settings.show_block -%}
+          <div class="newsletter-info__block" {{ block.shopify_attributes }}>
+            <div class="newsletter-info__icon">
+              {%- if block.settings.image != blank -%}
+                <img src="{{ block.settings.image | image_url: width: 140 }}" alt="{{ block.settings.title }}" loading="lazy">
+              {%- elsif block.settings.custom_svg != blank -%}
+                {{ block.settings.custom_svg }}
+              {%- else -%}
+                {% case block.settings.icon_name %}
+                  {% when 'plane' %}
+                    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2"/><path d="M15 32h34M32 15v34M21 21l22 22M43 21L21 43" opacity=".2" stroke="currentColor"/><path d="M48 24l-6 6-12-2-4 4 2 8-2 2-6-6-6-6-2 2 8 2 4-4-2-12 6-6 18 10z" fill="currentColor" stroke="none"/></svg>
+                  {% when 'box' %}
+                    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M32 8l22 10v28L32 56 10 46V18z" stroke="currentColor" stroke-width="2"/><path d="M32 8v48M10 18l22 10 22-10M20 22v12l12 6" stroke="currentColor" stroke-width="2"/></svg>
+                  {% when 'badge' %}
+                    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M32 44c6.627 0 12-5.373 12-12s-5.373-12-12-12-12 5.373-12 12 5.373 12 12 12z" stroke="currentColor" stroke-width="2"/><path d="M24 40l-4 16 12-4 12 4-4-16" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M32 26v12M28 32h8" stroke="currentColor" stroke-width="2"/></svg>
+                {% endcase %}
+              {%- endif -%}
+            </div>
+            <h3 class="newsletter-info__block-title">{{ block.settings.title }}</h3>
+            <p class="newsletter-info__block-subtitle">{{ block.settings.subtitle }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.show_newsletter -%}
+    <div class="newsletter-info__newsletter">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="newsletter-info__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      
+      <div class="newsletter-info__form-wrapper">
+        {%- form 'customer', class: 'custom-newsletter-form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="newsletter-info__form">
+            <div class="newsletter-info__field">
+              <input
+                id="NewsletterForm--{{ section.id }}"
+                type="email"
+                name="contact[email]"
+                class="newsletter-info__input"
+                value="{{ form.email }}"
+                aria-required="true"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                placeholder="{{ section.settings.placeholder_text }}"
+                required
+              >
+            </div>
+            <button
+              type="submit"
+              class="newsletter-info__submit"
+              name="commit"
+              id="Subscribe--{{ section.id }}"
+            >
+              {{ section.settings.button_text }}
+            </button>
+          </div>
+          {%- if form.errors -%}
+            <small class="newsletter-form__message form__message" style="color: #ff4d4d; margin-top: 10px; display: block;">
+              {{- form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email -}}
+            </small>
+          {%- endif -%}
+          {%- if form.posted_successfully? -%}
+            <h3 class="newsletter-form__message newsletter-form__message--success form__message" style="color: #4caf50; margin-top: 10px; font-size: 1.4rem;">
+              {{- 'newsletter.success' | t }}
+            </h3>
+          {%- endif -%}
+        {%- endform -%}
+
+        {%- if section.settings.show_subtext -%}
+          <div class="newsletter-info__subtext">
+            {{ section.settings.subtext }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Newsletter with Info",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-4"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "default": true,
+      "label": "Show Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "SUBSCRIBE TO OUR NEWSLETTER",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "default": "ENTER YOUR EMAIL",
+      "label": "Placeholder Text"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "default": "SUBSCRIBE",
+      "label": "Button Text"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subtext",
+      "default": true,
+      "label": "Show Subtext"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "default": "<p>This site is protected by reCAPTCHA and the Google <a href='#'>Privacy Policy</a> and <a href='#'>Terms of Service</a> apply.</p>",
+      "label": "Subtext"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dividers",
+      "default": true,
+      "label": "Show Vertical Dividers"
+    },
+    {
+      "type": "header",
+      "content": "Custom Padding"
+    },
+    {
+      "type": "text",
+      "id": "padding_desktop",
+      "label": "Desktop Padding (e.g., 80px 24px)",
+      "default": "80px 24px"
+    },
+    {
+      "type": "text",
+      "id": "padding_mobile",
+      "label": "Mobile Padding (e.g., 44px 24px)",
+      "default": "44px 24px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "info",
+      "name": "Info Block",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_block",
+          "default": true,
+          "label": "Show block"
+        },
+        {
+          "type": "select",
+          "id": "icon_name",
+          "label": "Icon",
+          "options": [
+            { "value": "plane", "label": "Planet & Plane" },
+            { "value": "box", "label": "Box" },
+            { "value": "badge", "label": "Badge" }
+          ],
+          "default": "plane"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Image Icon"
+        },
+        {
+          "type": "html",
+          "id": "custom_svg",
+          "label": "Custom SVG Code"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Worldwide Delivery",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "default": "Overnight Complimentary Shipping",
+          "label": "Subtitle"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter with Info",
+      "blocks": [
+        {
+          "type": "info",
+          "settings": {
+            "icon_name": "plane",
+            "title": "Worldwide Delivery",
+            "subtitle": "Overnight Complimentary Shipping"
+          }
+        },
+        {
+          "type": "info",
+          "settings": {
+            "icon_name": "box",
+            "title": "Returns Within 30 Days",
+            "subtitle": "Satisfaction Guaranteed"
+          }
+        },
+        {
+          "type": "info",
+          "settings": {
+            "icon_name": "badge",
+            "title": "Life Time Warranty",
+            "subtitle": "Shop With Confidence"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
