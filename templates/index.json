@@ -106,6 +106,60 @@
       "name": "As Seen On Slider",
       "settings": {}
     },
+    "custom_engagement_split_HP8cnH": {
+      "type": "custom-engagement-split",
+      "blocks": {
+        "text_block_fncP4N": {
+          "type": "text_block",
+          "settings": {
+            "icon": "shopify://shop_images/svgviewer-png-output_39c67bc8-8647-4581-ae89-870b8b5518c2.png",
+            "heading": "RING SETTING",
+            "subheading": "<p>Elevate your love story with our exquisite collection of engagement ring designs.</p>",
+            "button_label": "Start With a Setting",
+            "button_link": ""
+          }
+        },
+        "media_block_hfYUd7": {
+          "type": "media_block",
+          "settings": {
+            "image": "shopify://shop_images/design-setting-setting-image.webp",
+            "floating_image": "shopify://shop_images/design-setting-diamond-image.avif",
+            "floating_position_top": 0,
+            "floating_position_top_mobile": -2,
+            "floating_image_max_width": 350,
+            "media_margin_bottom": -30
+          }
+        },
+        "text_block_8h3Xc4": {
+          "type": "text_block",
+          "settings": {
+            "icon": "shopify://shop_images/svgviewer-png-output_1_fd32dc3a-18fc-46e7-8cf6-34057223e2e7.png",
+            "heading": "CENTER STONE",
+            "subheading": "<p>Elevate your love story with our exquisite collection of engagement ring designs.</p>",
+            "button_label": "Start With a Stone",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_block_fncP4N",
+        "media_block_hfYUd7",
+        "text_block_8h3Xc4"
+      ],
+      "name": "Design Your Ring",
+      "settings": {
+        "section_heading": "",
+        "mobile_heading": "DESIGN YOUR RING",
+        "mobile_subheading": "Build your own ring in 2 easy steps",
+        "bg_color": "#f7f7f7",
+        "description": "<p>Can't decide? <strong>TAKE OUR QUIZ</strong> find what you're looking for in 2 minutes</p>",
+        "description_position": "bottom",
+        "padding_top_desktop": 25,
+        "padding_bottom_desktop": 15,
+        "padding_top_mobile": 15,
+        "padding_bottom_mobile": 15
+      }
+    },
     "collection_list_DWwT9y": {
       "type": "collection-list",
       "blocks": {
@@ -427,60 +481,6 @@
         "padding_bottom": 60
       }
     },
-    "custom_engagement_split_HP8cnH": {
-      "type": "custom-engagement-split",
-      "blocks": {
-        "text_block_fncP4N": {
-          "type": "text_block",
-          "settings": {
-            "icon": "shopify://shop_images/svgviewer-png-output_39c67bc8-8647-4581-ae89-870b8b5518c2.png",
-            "heading": "RING SETTING",
-            "subheading": "<p>Elevate your love story with our exquisite collection of engagement ring designs.</p>",
-            "button_label": "Start With a Setting",
-            "button_link": ""
-          }
-        },
-        "media_block_hfYUd7": {
-          "type": "media_block",
-          "settings": {
-            "image": "shopify://shop_images/design-setting-setting-image.webp",
-            "floating_image": "shopify://shop_images/design-setting-diamond-image.avif",
-            "floating_position_top": 0,
-            "floating_position_top_mobile": -2,
-            "floating_image_max_width": 350,
-            "media_margin_bottom": -30
-          }
-        },
-        "text_block_8h3Xc4": {
-          "type": "text_block",
-          "settings": {
-            "icon": "shopify://shop_images/svgviewer-png-output_1_fd32dc3a-18fc-46e7-8cf6-34057223e2e7.png",
-            "heading": "CENTER STONE",
-            "subheading": "<p>Elevate your love story with our exquisite collection of engagement ring designs.</p>",
-            "button_label": "Start With a Stone",
-            "button_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "text_block_fncP4N",
-        "media_block_hfYUd7",
-        "text_block_8h3Xc4"
-      ],
-      "name": "Design Your Ring",
-      "settings": {
-        "section_heading": "",
-        "mobile_heading": "DESIGN YOUR RING",
-        "mobile_subheading": "Build your own ring in 2 easy steps",
-        "bg_color": "#f7f7f7",
-        "description": "<p>Can't decide? <strong>TAKE OUR QUIZ</strong> find what you're looking for in 2 minutes</p>",
-        "description_position": "bottom",
-        "padding_top_desktop": 25,
-        "padding_bottom_desktop": 15,
-        "padding_top_mobile": 15,
-        "padding_bottom_mobile": 15
-      }
-    },
     "blog_posts_slider_mbNk9U": {
       "type": "blog-posts-slider",
       "name": "Custom Blog Slider",
@@ -561,13 +561,13 @@
   "order": [
     "image_banner",
     "as_seen_on_bJBJ77",
+    "custom_engagement_split_HP8cnH",
     "collection_list_DWwT9y",
     "jewelry_v_slider_mkJggf",
     "jewelry_v_slider_xD64xF",
     "trustpilot_slider_R8zUyB",
-    "best_sellers_slider",
-    "custom_engagement_split_HP8cnH",
     "blog_posts_slider_mbNk9U",
+    "best_sellers_slider",
     "newsletter_with_info_KmMqWT"
   ]
 }
