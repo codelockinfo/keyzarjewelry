@@ -480,6 +480,29 @@
         "padding_top_mobile": 15,
         "padding_bottom_mobile": 15
       }
+    },
+    "blog_posts_slider_mbNk9U": {
+      "type": "blog-posts-slider",
+      "name": "Custom Blog Slider",
+      "settings": {
+        "heading": "THE JEWELRY BLOG",
+        "blog": "engagement-ring",
+        "post_limit": 6,
+        "color_scheme": "",
+        "bg_color": "#ffffff",
+        "text_color": "#000000",
+        "block_border_radius": 16,
+        "slides_desktop": 3,
+        "slides_tablet": 2,
+        "slides_mobile": 1.2,
+        "hide_nav_mobile": true,
+        "button_label": "Visit the Blog",
+        "button_link": "",
+        "padding_top_desktop": 64,
+        "padding_bottom_desktop": 64,
+        "padding_top_mobile": 36,
+        "padding_bottom_mobile": 36
+      }
     }
   },
   "order": [
@@ -490,6 +513,7 @@
     "jewelry_v_slider_xD64xF",
     "trustpilot_slider_R8zUyB",
     "best_sellers_slider",
-    "custom_engagement_split_HP8cnH"
+    "custom_engagement_split_HP8cnH",
+    "blog_posts_slider_mbNk9U"
   ]
 }
