@@ -424,8 +424,13 @@
         "logo_CeLPfz",
         "logo_wp6gEJ"
       ],
-      "name": "As Seen On Slider",
-      "settings": {}
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "Collections",
+        "bg_color": "#ffffff",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -435,6 +440,6 @@
     "jewelry_v_slider_xD64xF",
     "trustpilot_slider_R8zUyB",
     "best_sellers_slider",
-    "as_seen_on_bJBJ77"
+    "collection_list_DWwT9y"
   ]
 }
